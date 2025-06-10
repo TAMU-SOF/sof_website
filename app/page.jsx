@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import './globals.css';
+import RotatingWords from './components/RotatingWords';
 
 export default function HomePage() {
   return (
@@ -18,9 +19,9 @@ export default function HomePage() {
       <main className="main-content">
         <div className="text-section">
           <h1>
-            Shaping <span className="highlight">🎯</span> Designs <br />
-            into Real Projects <br />
-            that Deliver Results
+            Shaping <RotatingWords/> <br/>
+            in student leaders <br/>
+            across Texas A&M
           </h1>
           <p>
             Hi, I'm Adrian, a developer based in Croatia with a passion for code.

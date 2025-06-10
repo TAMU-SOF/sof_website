@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #5b0000;
   --foreground: #171717;
 }
 
@@ -22,8 +22,8 @@
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
-  background-color: black;
-  color: white;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
 }
 
 .container {
@@ -45,14 +45,14 @@ body {
 .nav-links a {
   margin: 0 1rem;
   text-decoration: none;
-  color: white;
+  color: rgb(0, 0, 0);
   font-weight: 500;
 }
 
 .contact-button {
   padding: 0.6rem 1rem;
-  background-color: white;
-  color: black;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   border: none;
   border-radius: 6px;
   cursor: pointer;
