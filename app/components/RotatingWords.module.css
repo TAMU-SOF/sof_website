@@ -1,0 +1,26 @@
+.rotatingContainer {
+  display: inline-block;
+  position: relative;
+  height: 1.3em;
+  width: 11ch;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.word {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transform: rotateX(180deg);
+  transform-origin: bottom;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+
+  color: maroon;
+  font-weight: bold;
+}
+
+.visible {
+  opacity: 1;
+  transform: rotateX(0deg);
+}

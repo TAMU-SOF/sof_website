@@ -1,7 +1,9 @@
 @import "tailwindcss";
+/* @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap'); */
+
 
 :root {
-  --background: #ffffff;
+  --background: #5b0000;
   --foreground: #171717;
 }
 
@@ -21,9 +23,9 @@
 
 body {
   margin: 0;
-  font-family: 'Arial', sans-serif;
-  background-color: black;
-  color: white;
+  font-family: var(--font-sans), sans-serif;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
 }
 
 .container {
@@ -34,7 +36,10 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 0;
+
+  width: 100vw;            /* 🔧 fill full screen */
+  padding: 2rem 5vw;       /* 👈 horizontal breathing room */
+  box-sizing: border-box;
 }
 
 .logo {
@@ -45,31 +50,39 @@ body {
 .nav-links a {
   margin: 0 1rem;
   text-decoration: none;
-  color: white;
-  font-weight: 500;
+  color: rgb(0, 0, 0);
+  font-weight: 700;
 }
 
 .contact-button {
   padding: 0.6rem 1rem;
-  background-color: white;
-  color: black;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .main-content {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-top: 4rem;
-  gap: 2rem;
-  flex-wrap: wrap;
+  align-items: center;
+  width: 100vw;            /* ⬅️ fill the entire screen */
+  padding: 4rem 4vw;       /* ⬅️ use viewport-based padding */
+  gap: 4rem;
+  flex-wrap: nowrap;
+  box-sizing: border-box;  /* ⬅️ make sure padding is included */
 }
 
 .text-section {
-  max-width: 600px;
+  flex: 1 1 70%;
+  max-width: 70%;
+}
+
+.image-section {
+  flex: 1 1 30%;
+  max-width: 30%;
 }
 
 .text-section h1 {
@@ -89,20 +102,21 @@ body {
 }
 
 .cta-button {
-  margin-top: 2rem;
   padding: 0.8rem 1.5rem;
   background-color: #a8d1ff;
   color: black;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
+
+  display: inline-block;    /* ✅ prevents full width */
+  width: fit-content;       /* ✅ keeps it tight around text */
+  text-align: center;
+
+  margin-top: 2rem; /* ⬅️ Adds space above the button */
 }
 
-.image-section {
-  flex: 1;
-  min-width: 300px;
-}
 
 .office-image {
   max-width: 100%;
