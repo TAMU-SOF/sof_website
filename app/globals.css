@@ -32,15 +32,6 @@ body {
   padding: 0 2rem;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 100vw;            /* 🔧 fill full screen */
-  padding: 2rem 5vw;       /* 👈 horizontal breathing room */
-  box-sizing: border-box;
-}
 
 .logo {
   font-weight: bold;
@@ -75,21 +66,11 @@ body {
   box-sizing: border-box;  /* ⬅️ make sure padding is included */
 }
 
-.text-section {
-  flex: 1 1 70%;
-  max-width: 70%;
-}
-
 .image-section {
   flex: 1 1 30%;
   max-width: 30%;
 }
 
-.text-section h1 {
-  font-size: 2.5rem;
-  line-height: 1.3;
-  font-weight: 700;
-}
 
 .highlight {
   color: #a8d1ff;
@@ -134,3 +115,23 @@ body {
   object-fit: cover;
   border-radius: 12px;
 }
+
+
+.animated-gradient {
+  background: linear-gradient(-45deg, #500000, #7b2cbf, #9d174d, #500000);
+  background-size: 400% 400%;
+  animation: gradientBG 8s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+

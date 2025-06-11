@@ -9,9 +9,9 @@ export default function HomePage() {
   return (
     <div className="container">
       <Navbar />
-      <main className="main-content">
-        <div className="text-section pt-28">
-          <h1>
+      <main className="main-content pt-28">
+        <div className="text-section">
+          <h1 className="text-5xl font-bold leading-[4rem]">
             Shaping <RotatingWords/> <br/>
             in student leaders <br/>
             across Texas A&M

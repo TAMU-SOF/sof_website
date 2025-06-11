@@ -1,7 +1,7 @@
 .rotatingContainer {
   display: inline-block;
   position: relative;
-  height: 1.3em;
+  height: 1.35em;
   width: 11ch;
   overflow: hidden;
   vertical-align: bottom;
@@ -16,7 +16,7 @@
   transform-origin: bottom;
   transition: transform 0.8s ease, opacity 0.8s ease;
 
-  color: maroon;
+  color: #630000;
   font-weight: bold;
 }
 
