@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import './globals.css';
 import RotatingWords from './components/RotatingWords';
+import PictureSlider from './components/PictureSlider';
 import Navbar from './components/Navbar';
+
 
 export default function HomePage() {
   return (
@@ -16,13 +18,7 @@ export default function HomePage() {
           </h1>
           <button className="cta-button">SEE MY WORK</button>
         </div>
-          <Image
-            src="/IMG_5893.JPG"
-            alt="3D Office"
-            width={600}
-            height={400}
-            className="office-image"
-          />
+          <PictureSlider/>
         <div/>
       </main>
     </div>
