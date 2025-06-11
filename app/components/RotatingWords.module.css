@@ -16,9 +16,32 @@
   transform-origin: bottom;
   transition: transform 0.8s ease, opacity 0.8s ease;
 
-  color: #630000;
   font-weight: bold;
+
+  /* Gradient text effect */
+  background: linear-gradient(90deg, #7b2cbf, #9d174d, #500000, #9d174d);
+  background-size: 300% 300%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  /* Animate the gradient */
+  animation: gradientMove 5s ease infinite;
 }
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 
 .visible {
   opacity: 1;

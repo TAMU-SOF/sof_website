@@ -24,8 +24,8 @@
 body {
   margin: 0;
   font-family: var(--font-sans), sans-serif;
-  background-color: #ffffff;
-  color: rgb(0, 0, 0);
+  background-color: #000000;
+  color: rgb(255, 255, 255);
 }
 
 .container {
@@ -38,12 +38,6 @@ body {
   font-size: 1.5rem;
 }
 
-.nav-links a {
-  margin: 0 1rem;
-  text-decoration: none;
-  color: rgb(0, 0, 0);
-  font-weight: 700;
-}
 
 .contact-button {
   padding: 0.6rem 1rem;

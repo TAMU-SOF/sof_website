@@ -22,7 +22,6 @@ export default function Navbar() {
   return (
     <motion.nav
       className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-4 shadow-md text-white"
-      style={{ backgroundColor: '#500000' }} // Maroon (Texas A&M vibe)
       animate={{ y: hideNavbar ? -90 : 0 }}
       transition={{ type: 'spring', stiffness: 120, damping: 20 }}
     >
