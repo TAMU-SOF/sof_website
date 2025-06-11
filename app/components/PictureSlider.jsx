@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import styles from './PictureSlider.module.css';
 
 const PictureSlider = ({ images = [] }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(1); // Start at 1 (first real image)
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Default images if none provided
@@ -18,37 +18,71 @@ const PictureSlider = ({ images = [] }) => {
   ];
 
   const slideImages = images.length > 0 ? images : defaultImages;
+  
+  // Create extended array with clones for infinite effect
+  const extendedImages = [
+    slideImages[slideImages.length - 1], // Clone of last image at beginning
+    ...slideImages,
+    slideImages[0] // Clone of first image at end
+  ];
 
   // Auto-rotate every 3 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => 
-        prevIndex === slideImages.length - 1 ? 0 : prevIndex + 1
-      );
+      setCurrentIndex((prevIndex) => prevIndex + 1);
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [slideImages.length, currentIndex]); // Reset interval when currentIndex changes
+  }, []);
+
+  // Handle infinite loop logic
+  useEffect(() => {
+    if (currentIndex === 0) {
+      // At clone of last image, jump to real last image without transition
+      setTimeout(() => {
+        const track = document.querySelector(`.${styles.imageTrack}`);
+        if (track) {
+          track.classList.add(styles.noTransition);
+          setCurrentIndex(slideImages.length);
+          setTimeout(() => {
+            track.classList.remove(styles.noTransition);
+          }, 10);
+        }
+      }, 400);
+    } else if (currentIndex === slideImages.length + 1) {
+      // At clone of first image, jump to real first image without transition
+      setTimeout(() => {
+        const track = document.querySelector(`.${styles.imageTrack}`);
+        if (track) {
+          track.classList.add(styles.noTransition);
+          setCurrentIndex(1);
+          setTimeout(() => {
+            track.classList.remove(styles.noTransition);
+          }, 10);
+        }
+      }, 400);
+    }
+  }, [currentIndex, slideImages.length]);
 
   const goToPrevious = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setCurrentIndex(currentIndex === 0 ? slideImages.length - 1 : currentIndex - 1);
-    setTimeout(() => setIsTransitioning(false), 600);
+    setCurrentIndex(currentIndex - 1);
+    setTimeout(() => setIsTransitioning(false), 400);
   };
 
   const goToNext = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setCurrentIndex(currentIndex === slideImages.length - 1 ? 0 : currentIndex + 1);
-    setTimeout(() => setIsTransitioning(false), 600);
+    setCurrentIndex(currentIndex + 1);
+    setTimeout(() => setIsTransitioning(false), 400);
   };
 
   const goToSlide = (index) => {
-    if (isTransitioning || index === currentIndex) return;
+    if (isTransitioning) return;
     setIsTransitioning(true);
-    setCurrentIndex(index);
-    setTimeout(() => setIsTransitioning(false), 600);
+    setCurrentIndex(index + 1); // +1 because of the clone at the beginning
+    setTimeout(() => setIsTransitioning(false), 400);
   };
 
   if (slideImages.length === 0) {
@@ -62,22 +96,22 @@ const PictureSlider = ({ images = [] }) => {
           className={styles.imageTrack}
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
-          {slideImages.map((image, index) => (
+          {extendedImages.map((image, index) => (
             <img 
-              key={index}
+              key={`extended-${index}`}
               src={image} 
-              alt={`Slide ${index + 1}`}
+              alt={`Slide ${index}`}
               className={`${styles.image} ${index === currentIndex ? styles.active : ''}`}
             />
           ))}
         </div>
         
-        {/* Dots indicator - moved inside image container */}
+        {/* Dots indicator */}
         <div className={styles.dotsContainer}>
           {slideImages.map((_, index) => (
             <button
               key={index}
-              className={`${styles.dot} ${index === currentIndex ? styles.activeDot : ''}`}
+              className={`${styles.dot} ${(currentIndex - 1) === index ? styles.activeDot : ''}`}
               onClick={() => goToSlide(index)}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -90,7 +124,21 @@ const PictureSlider = ({ images = [] }) => {
           onClick={goToPrevious}
           aria-label="Previous image"
         >
-          ‹
+          <svg 
+            width="24" 
+            height="24" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path 
+              d="M15 18L9 12L15 6" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            />
+          </svg>
         </button>
         
         <button 
@@ -98,7 +146,21 @@ const PictureSlider = ({ images = [] }) => {
           onClick={goToNext}
           aria-label="Next image"
         >
-          ›
+          <svg 
+            width="24" 
+            height="24" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path 
+              d="M9 18L15 12L9 6" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            />
+          </svg>
         </button>
       </div>
     </div>
