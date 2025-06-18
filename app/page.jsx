@@ -13,7 +13,7 @@ export default function HomePage() {
 
       <main className="main-content pt-32 md:pt-36">
         <div className="text-section">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight md:leading-[4rem]">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-relaxed md:leading-[5rem]">
             Shaping <RotatingWords /> <br />
             in student leaders <br />
             across Texas A&M

@@ -1,23 +1,10 @@
-.imageContainer:hover .navButton {
-  opacity: 1;
-}
-
-.navButton:hover {
-  transform: translateY(-50%) scale(1.1);
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.navButton:active {
-  transform: translateY(-50%) scale(0.95);
-}.slider {
+.slider {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   max-width: 650px;
-  margin-left: auto;
-  margin-right: 2rem;
-  margin-top: 6rem;
+  margin-top: 6rem; /* removed auto margins so it centers in its container */
 }
 
 .imageContainer {
@@ -144,19 +131,15 @@
 @media (max-width: 768px) {
   .slider {
     max-width: 480px;
-    margin-right: 1rem;
   }
-  
   .navButton {
     width: 38px;
     height: 38px;
     font-size: 20px;
   }
-  
   .prevButton {
     left: 8px;
   }
-  
   .nextButton {
     right: 8px;
   }
@@ -165,6 +148,5 @@
 @media (max-width: 480px) {
   .slider {
     max-width: 400px;
-    margin-right: 0.5rem;
   }
 }

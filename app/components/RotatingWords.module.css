@@ -1,39 +1,32 @@
-/* RotatingWords.module.css */
 .rotatingContainer {
   display: inline-block;
-  position: relative;
-  height: 1em;      /* exactly one line high */
-  width: auto;      /* size to the longest word */
   overflow: hidden;
+  height: 1.3em;        /* just tall enough for one word + small gap */
+  width: max-content;   /* fit to widest word */
   vertical-align: bottom;
+  position: relative;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
 }
 
 .word {
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-  transform: rotateX(180deg);
-  transform-origin: bottom;
-  transition: transform 0.8s ease, opacity 0.8s ease;
+  display: block;
+  height: 1.3em;        /* match container */
+  line-height: 1.3em;   /* center word vertically */
   font-weight: bold;
-  font-size: inherit;     /* match whatever font-size your <h1> has */
-  line-height: inherit;   /* same line-height as parent */
+  font-size: inherit;
 
-  /* gradient text effect */
+  /* animated gradient */
   background: linear-gradient(90deg, #7b2cbf, #9d174d, #500000, #9d174d);
   background-size: 300% 300%;
-  background-clip: text;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
-
-  /* animate the gradient */
+  color: transparent;
   animation: gradientMove 5s ease infinite;
-}
-
-.visible {
-  opacity: 1;
-  transform: rotateX(0deg);
 }
 
 @keyframes gradientMove {
