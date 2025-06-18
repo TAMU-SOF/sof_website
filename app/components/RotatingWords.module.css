@@ -1,8 +1,8 @@
 .rotatingContainer {
   display: inline-block;
   overflow: hidden;
-  height: 1.3em;        /* just tall enough for one word + small gap */
-  width: max-content;   /* fit to widest word */
+  height: 1.3em;
+  width: max-content;
   vertical-align: bottom;
   position: relative;
 }
@@ -14,12 +14,11 @@
 
 .word {
   display: block;
-  height: 1.3em;        /* match container */
-  line-height: 1.3em;   /* center word vertically */
+  height: 1.3em;
+  line-height: 1.3em;
   font-weight: bold;
   font-size: inherit;
 
-  /* animated gradient */
   background: linear-gradient(90deg, #7b2cbf, #9d174d, #500000, #9d174d);
   background-size: 300% 300%;
   -webkit-background-clip: text;

@@ -13,7 +13,7 @@ const stats = [
   { label: 'Days Since Inception', value: 295 },
 ];
 
-function StatBox({ label, value, prefix = '' }) {
+function StatBox({ label, value, prefix = '', index }) {
   const boxRef = useRef(null);
   const [count, setCount] = useState(0);
   const hasStarted = useRef(false);
@@ -54,13 +54,23 @@ function StatBox({ label, value, prefix = '' }) {
     );
   }, [value]);
 
+  // Calculate a negative delay so the 8s loop is offset evenly:
+  const offset = (index * (5 / stats.length)).toFixed(2);   // 8s / 3 boxes ≈ 2.67s
+  const delay = `-${offset}s`;
+
   return (
     <div ref={boxRef} className={styles.statBox}>
       <div className={styles.statValue}>
-        <span className={styles.glowOutline}>
+        <span 
+          className={styles.glowOutline}
+          style={{ animationDelay: delay }}
+        >
           {prefix}{count.toLocaleString()}
         </span>
-        <span className={styles.glowText}>
+        <span
+          className={styles.glowText}
+          style={{ animationDelay: delay }}
+        >
           {prefix}{count.toLocaleString()}
         </span>
       </div>
@@ -75,6 +85,7 @@ export default function StatBoxSection() {
       {stats.map((s, i) => (
         <StatBox
           key={i}
+          index={i}
           label={s.label}
           value={s.value}
           prefix={s.prefix}
