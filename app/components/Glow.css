@@ -1,0 +1,25 @@
+.glow-card {
+  position: relative;
+  border-radius: 1.5rem;
+  background: black;
+  padding: 2rem;
+  overflow: hidden;
+  border: 2px solid white;
+  z-index: 0;
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--start, 0deg),
+    #7b2cbf,
+    #9d174d,
+    #500000,
+    #7b2cbf
+  );
+  filter: blur(35px);
+  opacity: 0.25;
+  z-index: 0;
+}

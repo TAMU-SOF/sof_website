@@ -1,0 +1,78 @@
+.statContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 6rem;
+  padding: 0 2rem;
+  font-family: var(--font-sans), sans-serif;
+}
+
+.statBox {
+  background: #0e0e0e;
+  padding: 2.5rem 3rem;
+  border-radius: 2rem;
+  border: 1px solid #252525;
+  box-shadow:
+    0 2px 12px rgba(255, 255, 255, 0.05),
+    0 4px 30px rgba(0, 0, 0, 0.2);
+  min-width: 240px;
+  flex: 1 1 250px;
+  transition: transform 0.3s ease;
+}
+
+.statBox:hover {
+  transform: scale(1.02);
+}
+
+.statValue {
+  position: relative;
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+  display: inline-block;
+}
+
+/* both layers share the same animated gradient */
+.glowOutline,
+.glowText {
+  background: linear-gradient(-45deg, #500000, #7b2cbf, #9d174d, #500000);
+  background-size: 400% 400%;
+  animation: gradientGlow 8s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
+}
+
+/* blurred outline */
+.glowOutline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: blur(4px);
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* sharp fill on top */
+.glowText {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes gradientGlow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.statLabel {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: #d1d5db;
+  font-weight: 600;
+  text-align: left;
+}

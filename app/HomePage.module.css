@@ -1,0 +1,36 @@
+/* app/HomePage.module.css */
+
+.mainContent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* add extra top padding to clear the navbar */
+  padding: 6rem 2rem 4rem;    /* ↑ top 6rem, sides 2rem, bottom 4rem */
+  gap: 3rem;                  /* a bit more space between text & slider */
+  box-sizing: border-box;
+}
+
+.textSection,
+.sliderSection {
+  flex: 1 1 300px;
+  min-width: 280px;
+}
+
+.heroTitle {
+  /* clamp between 2rem and 3rem, using 4vw as viewport-based */
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  font-weight: bold;
+  color: white;
+  margin: 0;     /* remove any default margins */
+}
+
+.statsSection {
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
