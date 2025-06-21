@@ -1,0 +1,84 @@
+.statContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 6rem;
+  padding: 0 2rem;      /* no bottom padding here */
+  font-family: var(--font-sans), sans-serif;
+}
+
+.statBox {
+  background: #0e0e0e;
+  padding: 3rem;         /* uniform inside padding */
+  margin-bottom: 2rem;   /* space below each box */
+  border-radius: 2rem;
+  border: 1px solid #252525;
+  box-shadow:
+    0 2px 12px rgba(255, 255, 255, 0.05),
+    0 4px 30px rgba(0, 0, 0, 0.2);
+  min-width: 240px;
+  min-height: 250px;     /* taller boxes */
+  flex: 1 1 250px;
+
+  /* bottom-left alignment */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  transition: transform 0s ease;
+}
+
+.statBox:hover {
+  transform: scale(1.02);
+}
+
+.statValue {
+  position: relative;
+  font-size: 5rem;       /* bigger numbers */
+  font-weight: 700;
+  line-height: 1;
+  display: inline-block;
+}
+
+.glowOutline,
+.glowText {
+  background: linear-gradient(-45deg, #500000, #7b2cbf, #9d174d, #500000);
+  background-size: 400% 400%;
+  animation: gradientGlow 8s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
+}
+
+.glowOutline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: blur(6px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glowText {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes gradientGlow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* label now sits at the very bottom-left */
+.statLabel {
+  font-size: 1.5rem;
+  color: #98999b;
+  font-weight: 600;
+  text-align: left;
+}
