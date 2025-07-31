@@ -11,8 +11,8 @@ const PictureSlider = ({ images = [] }) => {
   const defaultImages = [
     '/IMG_2714.jpg',
     '/IMG_2716.jpg',
+    '/IMG_5088.jpg',
     '/IMG_6888.jpg',
-    '/IMG_6969.jpg',
   ];
 
   const slideImages = images.length > 0 ? images : defaultImages;
