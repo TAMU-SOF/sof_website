@@ -1,0 +1,264 @@
+.timelineSection {
+  width: 100%;
+  background-color: #000000;
+  color: #000000;
+  padding: 5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.title {
+  text-align: center;
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 5rem;
+  }
+}
+
+.gradientText {
+  background: linear-gradient(90deg, #7b2cbf, #9d174d, #500000, #9d174d);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.timeline {
+  position: relative;
+  width: 100%;
+  min-height: 200vh;
+}
+
+/* SVG Paths */
+.pathSvg {
+  position: absolute;
+  top: 0;
+  width: 80px;
+  height: 100%;
+  pointer-events: none;
+}
+
+.leftPath {
+  left: 10%;
+}
+
+.rightPath {
+  right: 10%;
+}
+
+.path {
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+/* Timeline Items */
+.timelineItem {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.7s ease;
+}
+
+.timelineItem.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timelineItem.left {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: calc(10% + 100px);
+  padding-right: 20%;
+}
+
+.timelineItem.right {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: calc(10% + 100px);
+  padding-left: 20%;
+}
+
+/* Cards */
+.card {
+  background: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  transform: scale(0.95);
+  transition: all 0.5s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+}
+
+.visible .card {
+  transform: scale(1);
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+}
+
+.imageContainer {
+  position: relative;
+  height: 16rem;
+  background-color: #f3f4f6;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f3e7ff 0%, #ffe0f0 100%);
+  font-size: 2rem;
+  font-weight: bold;
+  color: #9ca3af;
+}
+
+.content {
+  padding: 2rem;
+}
+
+.cardTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, #7b2cbf, #9d174d, #500000, #9d174d);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.description {
+  color: #374151;
+  line-height: 1.75;
+  font-size: 1rem;
+}
+
+/* Nodes */
+.node {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leftNode {
+  left: calc(10% + 24px);
+}
+
+.rightNode {
+  right: calc(10% + 24px);
+}
+
+.nodeInner {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #7b2cbf, #9d174d, #500000, #9d174d);
+  transform: scale(0);
+  transition: all 0.5s ease;
+  box-shadow: 0 0 0 rgba(123, 44, 191, 0);
+}
+
+.visible .nodeInner {
+  transform: scale(1);
+  box-shadow: 0 0 30px rgba(123, 44, 191, 0.6);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .leftPath {
+    left: 5%;
+  }
+  
+  .rightPath {
+    right: 5%;
+  }
+  
+  .timelineItem.left {
+    padding-left: calc(5% + 80px);
+    padding-right: 10%;
+  }
+  
+  .timelineItem.right {
+    padding-right: calc(5% + 80px);
+    padding-left: 10%;
+  }
+  
+  .leftNode {
+    left: calc(5% + 24px);
+  }
+  
+  .rightNode {
+    right: calc(5% + 24px);
+  }
+}
+
+@media (max-width: 768px) {
+  .timeline {
+    min-height: 250vh;
+  }
+  
+  .pathSvg {
+    width: 60px;
+  }
+  
+  .leftPath,
+  .rightPath {
+    left: 2%;
+    right: auto;
+  }
+  
+  .timelineItem.left,
+  .timelineItem.right {
+    padding-left: calc(2% + 70px);
+    padding-right: 2%;
+  }
+  
+  .leftNode,
+  .rightNode {
+    left: calc(2% + 18px);
+    right: auto;
+  }
+  
+  .cardTitle {
+    font-size: 1.5rem;
+  }
+  
+  .description {
+    font-size: 0.9rem;
+  }
+  
+  .imageContainer {
+    height: 12rem;
+  }
+}
