@@ -5,6 +5,7 @@ import RotatingWords from './components/RotatingWords';
 import PictureSlider from './components/PictureSlider';
 import Navbar from './components/Navbar';
 import StatBoxSection from './components/StatBox';
+import SnakeTimeline from './components/SnakeTimeline';
 
 export default function HomePage() {
   return (
@@ -23,6 +24,7 @@ export default function HomePage() {
       </main>
 
       <StatBoxSection />
+      <SnakeTimeline />
     </div>
   );
 }
