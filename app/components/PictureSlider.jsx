@@ -6,6 +6,7 @@ import styles from './PictureSlider.module.css';
 const PictureSlider = ({ images = [] }) => {
   const [currentIndex, setCurrentIndex] = useState(1); // Start at 1 (first real image)
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
   // Default images if none provided
   const defaultImages = [
@@ -24,14 +25,40 @@ const PictureSlider = ({ images = [] }) => {
     slideImages[0] // Clone of first image at end
   ];
 
-  // Auto-rotate every 3 seconds
+  // Preload images for better quality
   useEffect(() => {
+    const preloadImages = async () => {
+      const imagePromises = slideImages.map((src) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = resolve;
+          img.onerror = reject;
+          img.src = src;
+        });
+      });
+
+      try {
+        await Promise.all(imagePromises);
+        setImagesLoaded(true);
+      } catch (error) {
+        console.warn('Some images failed to preload:', error);
+        setImagesLoaded(true); // Continue anyway
+      }
+    };
+
+    preloadImages();
+  }, [slideImages]);
+
+  // Auto-rotate timer with reset capability
+  useEffect(() => {
+    if (!imagesLoaded) return;
+    
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => prevIndex + 1);
-    }, 3000);
+    }, 4000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [imagesLoaded, currentIndex]); // Reset timer when currentIndex changes
 
   // Handle infinite loop logic
   useEffect(() => {
@@ -89,20 +116,38 @@ const PictureSlider = ({ images = [] }) => {
 
   return (
     <div className={styles.slider}>
-      <div className={`${styles.imageContainer} ${isTransitioning ? styles.transitioning : ''}`}>
+      <div className={`${styles.imageContainer} ${isTransitioning ? styles.transitioning : ''} ${!imagesLoaded ? styles.loading : ''}`}>
         <div 
           className={styles.imageTrack}
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {extendedImages.map((image, index) => (
-            <img 
-              key={`extended-${index}`}
-              src={image} 
-              alt={`Slide ${index}`}
-              className={`${styles.image} ${index === currentIndex ? styles.active : ''}`}
-            />
+            <picture key={`extended-${index}`} className={styles.pictureWrapper}>
+              <img 
+                src={image} 
+                alt={`Slide ${index}`}
+                className={`${styles.image} ${index === currentIndex ? styles.active : ''}`}
+                loading={index <= 2 ? "eager" : "lazy"} // Eager load first few images
+                decoding="async"
+                // Add high-quality attributes
+                style={{
+                  imageRendering: 'high-quality',
+                  WebkitImageSmoothing: 'high-quality',
+                  MozImageSmoothing: 'high-quality',
+                  msImageSmoothing: 'high-quality',
+                  imageSmoothing: 'high-quality'
+                }}
+              />
+            </picture>
           ))}
         </div>
+        
+        {/* Loading indicator */}
+        {!imagesLoaded && (
+          <div className={styles.loadingIndicator}>
+            <div className={styles.spinner}></div>
+          </div>
+        )}
         
         {/* Dots indicator */}
         <div className={styles.dotsContainer}>
@@ -121,6 +166,7 @@ const PictureSlider = ({ images = [] }) => {
           className={`${styles.navButton} ${styles.prevButton}`}
           onClick={goToPrevious}
           aria-label="Previous image"
+          disabled={!imagesLoaded}
         >
           <svg 
             width="24" 
@@ -143,6 +189,7 @@ const PictureSlider = ({ images = [] }) => {
           className={`${styles.navButton} ${styles.nextButton}`}
           onClick={goToNext}
           aria-label="Next image"
+          disabled={!imagesLoaded}
         >
           <svg 
             width="24" 

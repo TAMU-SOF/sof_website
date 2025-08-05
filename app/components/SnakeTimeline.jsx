@@ -6,23 +6,22 @@ import styles from './SnakeTimeline.module.css';
 const SnakeTimeline = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const timelineRef = useRef(null);
-  const leftPathRef = useRef(null);
-  const rightPathRef = useRef(null);
-  const [visibleItems, setVisibleItems] = useState(new Set());
+  const pathRef = useRef(null);
+  const [activeSection, setActiveSection] = useState(0);
 
   // Timeline data with your content
   const timelineData = [
     {
       id: 1,
       title: 'Speaker Series',
-      description: 'The SOF Speaker Series aims to provide members with valuable insights, inspiration, and knowledge from industry professionals and Texas A&M Alumni. These sessions help members understand the practical applications of finance principles, gain career advice, and learn about current trends and challenges in the finance industry. By facilitating direct interactions with experienced professionals, the Speaker Series enhances the educational experience and supports the professional development of SOF members.',
+      description: 'The SOF Speaker Series aims to provide members with valuable insights, inspiration, and knowledge from industry professionals and Texas A&M Alumni. These sessions help members understand the practical applications of finance principles, gain career advice, and learn about current trends and challenges in the finance industry.',
       image: '/speaker-series.jpg',
       side: 'left'
     },
     {
       id: 2,
       title: 'LDP',
-      description: 'The Leadership Development Program (LDP) is an 8-week program designed to equip members with the principles and skills to be ethical and effective leaders. The program is rooted in the 12 principles and 4 SOF values: Integrity, Humility, Compassion, and Excellence. It aims to provide a comprehensive foundation for personal and professional growth, preparing members for leadership roles in the finance industry.',
+      description: 'The Leadership Development Program (LDP) is an 8-week program designed to equip members with the principles and skills to be ethical and effective leaders. The program is rooted in the 12 principles and 4 SOF values: Integrity, Humility, Compassion, and Excellence.',
       image: '/ldp.jpg',
       side: 'right'
     },
@@ -44,42 +43,76 @@ const SnakeTimeline = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!timelineRef.current) return;
+      if (!timelineRef.current || !pathRef.current) return;
 
       const rect = timelineRef.current.getBoundingClientRect();
-      const scrolled = window.scrollY - timelineRef.current.offsetTop + window.innerHeight * 0.5;
-      const height = timelineRef.current.offsetHeight;
-      const progress = Math.max(0, Math.min(1, scrolled / height));
+      const windowHeight = window.innerHeight;
+      const componentHeight = rect.height;
+      
+      // Calculate scroll progress through the component
+      const scrolled = -rect.top + windowHeight / 2;
+      const totalScrollDistance = componentHeight;
+      const progress = Math.max(0, Math.min(1, scrolled / totalScrollDistance));
       
       setScrollProgress(progress);
 
-      // Update both paths
-      [leftPathRef, rightPathRef].forEach(pathRef => {
-        if (pathRef.current) {
-          const pathLength = pathRef.current.getTotalLength();
-          pathRef.current.style.strokeDasharray = pathLength;
-          pathRef.current.style.strokeDashoffset = pathLength * (1 - progress);
-        }
-      });
+      // Update path animation
+      const path = pathRef.current;
+      const pathLength = path.getTotalLength();
+      
+      // Set up the stroke dash
+      path.style.strokeDasharray = pathLength;
+      path.style.strokeDashoffset = pathLength * (1 - progress);
 
-      // Check which items should be visible
-      const items = timelineRef.current.querySelectorAll(`.${styles.timelineItem}`);
-      const newVisibleItems = new Set();
-      
-      items.forEach((item, index) => {
-        const itemRect = item.getBoundingClientRect();
-        if (itemRect.top < window.innerHeight * 0.8) {
-          newVisibleItems.add(index);
-        }
-      });
-      
-      setVisibleItems(newVisibleItems);
+      // Calculate active section
+      const sectionProgress = progress * timelineData.length;
+      const newActiveSection = Math.min(Math.floor(sectionProgress), timelineData.length - 1);
+      setActiveSection(newActiveSection);
     };
 
     handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Generate the winding path
+  const generatePath = () => {
+    const startY = 10;
+    const endY = 90;
+    const leftX = 25;
+    const rightX = 75;
+    const centerX = 50;
+    
+    // Create a winding path that goes between sections
+    const sectionHeight = (endY - startY) / (timelineData.length - 1);
+    
+    let pathData = `M ${centerX} ${startY}`;
+    
+    timelineData.forEach((item, index) => {
+      const y = startY + (sectionHeight * index);
+      const x = item.side === 'left' ? leftX : rightX;
+      
+      if (index === 0) {
+        // First curve from center to first point
+        pathData += ` Q ${centerX} ${y - 5}, ${x} ${y}`;
+      } else {
+        const prevItem = timelineData[index - 1];
+        const prevX = prevItem.side === 'left' ? leftX : rightX;
+        const midY = y - sectionHeight / 2;
+        
+        // Create S-curve between points
+        if (prevX !== x) {
+          // Crossing from one side to the other
+          pathData += ` C ${prevX} ${midY - 10}, ${x} ${midY + 10}, ${x} ${y}`;
+        } else {
+          // Same side - slight curve
+          pathData += ` Q ${x + (x === leftX ? -5 : 5)} ${midY}, ${x} ${y}`;
+        }
+      }
+    });
+    
+    return pathData;
+  };
 
   return (
     <div className={styles.timelineSection}>
@@ -89,58 +122,61 @@ const SnakeTimeline = () => {
         </h1>
         
         <div ref={timelineRef} className={styles.timeline}>
-          {/* Left Path SVG */}
-          <svg
-            className={`${styles.pathSvg} ${styles.leftPath}`}
-            viewBox="0 0 100 2000"
-            preserveAspectRatio="none"
-          >
-            <path
-              ref={leftPathRef}
-              d="M 50 50 
-                 C 50 350, 50 350, 50 650
-                 C 50 950, 50 950, 50 1250
-                 C 50 1550, 50 1550, 50 1850"
-              fill="none"
-              stroke="url(#leftGradient)"
-              strokeWidth="4"
-              className={styles.path}
-            />
+          {/* SVG Path */}
+          <svg className={styles.timelineSvg} viewBox="0 0 100 100" preserveAspectRatio="none">
             <defs>
-              <linearGradient id="leftGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <linearGradient id="pathGradient" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stopColor="#7b2cbf" />
-                <stop offset="33%" stopColor="#9d174d" />
-                <stop offset="66%" stopColor="#500000" />
-                <stop offset="100%" stopColor="#9d174d" />
+                <stop offset="50%" stopColor="#9d174d" />
+                <stop offset="100%" stopColor="#500000" />
               </linearGradient>
             </defs>
-          </svg>
-
-          {/* Right Path SVG */}
-          <svg
-            className={`${styles.pathSvg} ${styles.rightPath}`}
-            viewBox="0 0 100 2000"
-            preserveAspectRatio="none"
-          >
+            
+            {/* Background path */}
             <path
-              ref={rightPathRef}
-              d="M 50 200 
-                 C 50 500, 50 500, 50 800
-                 C 50 1100, 50 1100, 50 1400
-                 C 50 1700, 50 1700, 50 1950"
+              d={generatePath()}
               fill="none"
-              stroke="url(#rightGradient)"
-              strokeWidth="4"
-              className={styles.path}
+              stroke="#e0e0e0"
+              strokeWidth="2"
+              opacity="0.3"
             />
-            <defs>
-              <linearGradient id="rightGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#7b2cbf" />
-                <stop offset="33%" stopColor="#9d174d" />
-                <stop offset="66%" stopColor="#500000" />
-                <stop offset="100%" stopColor="#9d174d" />
-              </linearGradient>
-            </defs>
+            
+            {/* Animated path */}
+            <path
+              ref={pathRef}
+              d={generatePath()}
+              fill="none"
+              stroke="url(#pathGradient)"
+              strokeWidth="3"
+              strokeLinecap="round"
+            />
+            
+            {/* Points at each section */}
+            {timelineData.map((item, index) => {
+              const y = 10 + ((90 - 10) / (timelineData.length - 1)) * index;
+              const x = item.side === 'left' ? 25 : 75;
+              const isActive = index <= activeSection;
+              
+              return (
+                <g key={item.id}>
+                  {/* Outer circle */}
+                  <circle
+                    cx={x}
+                    cy={y}
+                    r="2"
+                    fill={isActive ? "url(#pathGradient)" : "#e0e0e0"}
+                    className={styles.timelinePoint}
+                  />
+                  {/* Inner circle */}
+                  <circle
+                    cx={x}
+                    cy={y}
+                    r="1"
+                    fill="#fff"
+                  />
+                </g>
+              );
+            })}
           </svg>
 
           {/* Timeline Items */}
@@ -148,15 +184,13 @@ const SnakeTimeline = () => {
             <div
               key={item.id}
               className={`${styles.timelineItem} ${styles[item.side]} ${
-                visibleItems.has(index) ? styles.visible : ''
+                index <= activeSection ? styles.active : ''
               }`}
               style={{
-                top: `${(index / (timelineData.length - 1)) * 75}%`,
-                transitionDelay: `${index * 100}ms`
+                top: `${10 + ((90 - 10) / (timelineData.length - 1)) * index}%`
               }}
             >
-              <div className={styles.card}>
-                {/* Image */}
+              <div className={styles.content}>
                 <div className={styles.imageContainer}>
                   <img 
                     src={item.image} 
@@ -164,32 +198,25 @@ const SnakeTimeline = () => {
                     className={styles.image}
                     onError={(e) => {
                       e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = `
-                        <div class="${styles.imagePlaceholder}">
-                          <span>${item.title}</span>
-                        </div>
-                      `;
+                      e.target.parentElement.innerHTML = `<div class="${styles.imagePlaceholder}">${item.title}</div>`;
                     }}
                   />
                 </div>
-                
-                {/* Content */}
-                <div className={styles.content}>
-                  <h3 className={styles.cardTitle}>
-                    {item.title}
-                  </h3>
-                  <p className={styles.description}>
-                    {item.description}
-                  </p>
+                <div className={styles.textContent}>
+                  <h3 className={styles.itemTitle}>{item.title}</h3>
+                  <p className={styles.itemDescription}>{item.description}</p>
                 </div>
-              </div>
-
-              {/* Node */}
-              <div className={`${styles.node} ${styles[`${item.side}Node`]}`}>
-                <div className={styles.nodeInner} />
               </div>
             </div>
           ))}
+
+          {/* Progress Indicator */}
+          <div className={styles.progressIndicator}>
+            <div 
+              className={styles.progressBar}
+              style={{ transform: `scaleY(${scrollProgress})` }}
+            />
+          </div>
         </div>
       </div>
     </div>

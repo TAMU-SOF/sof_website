@@ -1,10 +1,10 @@
 .timelineSection {
   width: 100%;
+  min-height: 200vh;
   background-color: #000000;
-  color: #000000;
+  color: #ffffff;
   padding: 5rem 0;
   position: relative;
-  overflow: hidden;
 }
 
 .container {
@@ -19,6 +19,12 @@
   font-size: 4rem;
   font-weight: bold;
   margin-bottom: 5rem;
+  color: #ffffff;
+  position: sticky;
+  top: 2rem;
+  z-index: 10;
+  background-color: #000000;
+  padding: 1rem 0;
 }
 
 @media (min-width: 768px) {
@@ -38,92 +44,91 @@
 .timeline {
   position: relative;
   width: 100%;
-  min-height: 200vh;
+  height: 150vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* SVG Paths */
-.pathSvg {
+/* SVG Timeline */
+.timelineSvg {
   position: absolute;
-  top: 0;
-  width: 80px;
+  width: 80%;
   height: 100%;
-  pointer-events: none;
-}
-
-.leftPath {
   left: 10%;
+  top: 0;
+  z-index: 1;
 }
 
-.rightPath {
-  right: 10%;
-}
-
-.path {
-  transition: stroke-dashoffset 0.1s linear;
+.timelinePoint {
+  transition: all 0.5s ease;
 }
 
 /* Timeline Items */
 .timelineItem {
   position: absolute;
-  width: 100%;
+  width: 45%;
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.7s ease;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+  z-index: 2;
 }
 
-.timelineItem.visible {
+.timelineItem.active {
   opacity: 1;
   transform: translateY(0);
 }
 
 .timelineItem.left {
-  display: flex;
-  justify-content: flex-start;
-  padding-left: calc(10% + 100px);
-  padding-right: 20%;
+  left: 0;
+  text-align: right;
 }
 
 .timelineItem.right {
+  right: 0;
+  text-align: left;
+}
+
+.content {
   display: flex;
-  justify-content: flex-end;
-  padding-right: calc(10% + 100px);
-  padding-left: 20%;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
 }
 
-/* Cards */
-.card {
-  background: #ffffff;
-  border: 2px solid #000000;
-  border-radius: 1.5rem;
-  overflow: hidden;
-  transform: scale(0.95);
-  transition: all 0.5s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  width: 100%;
-  position: relative;
+.content:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: scale(1.02);
+  box-shadow: 0 10px 40px rgba(123, 44, 191, 0.3);
 }
 
-.visible .card {
-  transform: scale(1);
-}
-
-.card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+.timelineItem.right .content {
+  flex-direction: row-reverse;
 }
 
 .imageContainer {
-  position: relative;
-  height: 16rem;
-  background-color: #f3f4f6;
+  flex-shrink: 0;
+  width: 200px;
+  height: 160px;
+  border-radius: 15px;
   overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
 
 .image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.content:hover .image {
+  transform: scale(1.1);
 }
 
 .imagePlaceholder {
@@ -132,133 +137,145 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f3e7ff 0%, #ffe0f0 100%);
-  font-size: 2rem;
+  background: linear-gradient(135deg, #7b2cbf, #9d174d);
+  color: white;
+  font-size: 1.2rem;
   font-weight: bold;
-  color: #9ca3af;
+  text-align: center;
+  padding: 1rem;
 }
 
-.content {
-  padding: 2rem;
+.textContent {
+  flex: 1;
 }
 
-.cardTitle {
+.itemTitle {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  background: linear-gradient(90deg, #7b2cbf, #9d174d, #500000, #9d174d);
+  background: linear-gradient(135deg, #7b2cbf, #9d174d, #500000);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  color: transparent;
+  color: #7b2cbf;
 }
 
-.description {
-  color: #374151;
-  line-height: 1.75;
+.itemDescription {
+  color: #e0e0e0;
+  line-height: 1.6;
   font-size: 1rem;
 }
 
-/* Nodes */
-.node {
-  position: absolute;
+/* Progress Indicator */
+.progressIndicator {
+  position: fixed;
+  right: 2rem;
   top: 50%;
   transform: translateY(-50%);
-  width: 2rem;
-  height: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 4px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  z-index: 20;
 }
 
-.leftNode {
-  left: calc(10% + 24px);
+.progressBar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #7b2cbf, #9d174d, #500000);
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform 0.1s ease-out;
 }
 
-.rightNode {
-  right: calc(10% + 24px);
-}
-
-.nodeInner {
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  background: linear-gradient(90deg, #7b2cbf, #9d174d, #500000, #9d174d);
-  transform: scale(0);
-  transition: all 0.5s ease;
-  box-shadow: 0 0 0 rgba(123, 44, 191, 0);
-}
-
-.visible .nodeInner {
-  transform: scale(1);
-  box-shadow: 0 0 30px rgba(123, 44, 191, 0.6);
-}
-
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 1024px) {
-  .leftPath {
-    left: 5%;
+.timelineItem {
+    position: absolute;
+    width: 48%;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+    z-index: 2;
   }
-  
-  .rightPath {
-    right: 5%;
+
+  .timelineItem.active {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
+
   .timelineItem.left {
-    padding-left: calc(5% + 80px);
-    padding-right: 10%;
+    left: -2%;
+    text-align: right;
   }
-  
+
   .timelineItem.right {
-    padding-right: calc(5% + 80px);
-    padding-left: 10%;
+    right: -2%;
+    text-align: left;
   }
   
-  .leftNode {
-    left: calc(5% + 24px);
-  }
-  
-  .rightNode {
-    right: calc(5% + 24px);
+  .imageContainer {
+    width: 100%;
+    max-width: 250px;
   }
 }
 
 @media (max-width: 768px) {
   .timeline {
-    min-height: 250vh;
+    height: 200vh;
   }
   
-  .pathSvg {
-    width: 60px;
+  .timelineSvg {
+    width: 90%;
+    left: 5%;
   }
   
-  .leftPath,
-  .rightPath {
-    left: 2%;
-    right: auto;
+  .timelineItem {
+    width: 85%;
   }
   
   .timelineItem.left,
   .timelineItem.right {
-    padding-left: calc(2% + 70px);
-    padding-right: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
   }
   
-  .leftNode,
-  .rightNode {
-    left: calc(2% + 18px);
-    right: auto;
+  .timelineItem.active {
+    transform: translateX(-50%) translateY(0);
   }
   
-  .cardTitle {
+  .content {
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+  
+  .itemTitle {
     font-size: 1.5rem;
   }
   
-  .description {
+  .itemDescription {
     font-size: 0.9rem;
   }
   
+  .progressIndicator {
+    right: 1rem;
+    height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+  }
+  
+  .content {
+    padding: 1rem;
+  }
+  
   .imageContainer {
-    height: 12rem;
+    height: 140px;
   }
 }
