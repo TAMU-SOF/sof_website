@@ -4,7 +4,7 @@
   align-items: center;
   width: 100%;
   max-width: 650px;
-  margin-top: 6rem; /* removed auto margins so it centers in its container */
+  margin-top: 6rem;
 }
 
 .imageContainer {
@@ -15,6 +15,10 @@
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   background: #f0f0f0;
+}
+
+.imageContainer.loading {
+  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
 }
 
 .imageTrack {
@@ -29,20 +33,74 @@
   transition: none !important;
 }
 
+.pictureWrapper {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
 .image {
   flex: 0 0 100%;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   transition: filter 0.2s ease;
+  
+  /* High-quality image rendering */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: high-quality;
+  
+  /* Prevent blur during transforms */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  
+  /* Smooth scaling */
+  image-rendering: auto;
+  -ms-interpolation-mode: bicubic;
+}
+
+/* Override pixelated for smooth images */
+@supports (image-rendering: crisp-edges) {
+  .image {
+    image-rendering: auto;
+  }
 }
 
 .imageContainer.transitioning .image:not(.active) {
-  filter: blur(1px);
+  filter: blur(0.5px); /* Reduced blur for better quality */
 }
 
 .image.active {
   filter: blur(0px);
+}
+
+/* Loading indicator */
+.loadingIndicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid #7b2cbf;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .navButton {
@@ -67,16 +125,21 @@
   backdrop-filter: blur(10px);
 }
 
-.imageContainer:hover .navButton {
+.navButton:disabled {
+  opacity: 0 !important;
+  cursor: not-allowed;
+}
+
+.imageContainer:hover .navButton:not(:disabled) {
   opacity: 1;
 }
 
-.navButton:hover {
+.navButton:hover:not(:disabled) {
   transform: translateY(-50%) scale(1.1);
   background: rgba(0, 0, 0, 0.5);
 }
 
-.navButton:active {
+.navButton:active:not(:disabled) {
   transform: translateY(-50%) scale(0.95);
 }
 
@@ -125,6 +188,13 @@
 
 .activeDot:hover {
   background: white;
+}
+
+/* High DPI display optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .image {
+    image-rendering: -webkit-optimize-contrast;
+  }
 }
 
 /* Responsive design */
