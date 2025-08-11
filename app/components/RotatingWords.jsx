@@ -54,3 +54,9 @@ export default function RotatingWords() {
     </span>
   );
 }
+
+//Add resources tab under timeline section:
+// ⦁	training the street
+// ⦁	Recurit/ interview prep/ networking
+// ⦁	Sof podcast
+// ⦁	Tech workshops
