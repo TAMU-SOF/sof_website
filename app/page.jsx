@@ -9,8 +9,8 @@ export default function HomePage() {
       textAlign: 'center',
       fontFamily: 'Arial, sans-serif'
     }}>
-      <h1>The Texas A&M Website is under construction</h1>
-      <p>Please stay tuned until it is ready for production.</p>
+      <h1>The Texas A&M Scholars of Finance Website is under construction</h1>
+      <p>Please stay tuned for Fall 25' when it is ready for production.</p>
     </div>
   );
 }
