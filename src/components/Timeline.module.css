@@ -23,6 +23,8 @@
   --mediaRatioH: 9;
 
   /* Section layout spacing */
+  --topPad: 3.25rem;  /* default if not overridden */
+  --headGap: 1.5rem;  /* default if not overridden */
   width:100%;
   padding-top: var(--topPad);
   padding-bottom: var(--bottomPad);
@@ -44,85 +46,100 @@
 
 /* ===== SUBJECTS (left column) ===== */
 .titlesLayer{
-  position:absolute;
-  top:0; bottom:0; left:0; right:0;
-  pointer-events:none;
-  padding-left: var(--titleGutter);  /* push away from the path */
-  text-align:left;                   /* align words to the left */
+  position: absolute;
+  inset: 0;                   /* top:0 right:0 bottom:0 left:0 */
+  pointer-events: none;
+  padding-right: var(--titleGutter); /* space from the path */
+  text-align: right;          /* right-align label text */
 }
+
+/* Each title is absolutely positioned by JSX with style={{ top: yPx }} */
 .title{
-  position:absolute;                /* JS sets top: <px> to the card center */
+  position: absolute;
+  right: 0;                   /* lock all labels to same right edge */
   transform: translateY(-50%);
-  display:inline-block;
-  font-weight:900;
+  display: inline-block;
+
+  font-weight: 900;
   font-size: clamp(1.2rem, 1.1vw + 1rem, 1.7rem);
   color: var(--maroon-700);
-  line-height:1.2;
-  white-space:nowrap;
+  line-height: 1.2;
+  white-space: nowrap;
 
-  /* soft translucent pill for readability */
   background: rgba(255,255,255,0.75);
   padding: .35rem .75rem;
   border-radius: .75rem;
   box-shadow: 0 4px 12px rgba(0,0,0,.05);
 }
+
 .titleActive{
   color: var(--maroon-600);
   transform: translateY(-50%) scale(1.04);
 }
 
 /* prevent extremely long titles from spilling (desktop only) */
-@media (min-width: 761px){
-  .title{
-    max-width: calc(var(--titlesWidth) - var(--titleGutter));
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
+
 
 /* ===== PATH (center column) ===== */
+/* PATH (center column) */
 .fullRail{
   position:absolute;
-  top: 1.25rem;                /* reduce vertical span of the path */
-  bottom: 1.25rem;
+  top: 10rem;
+  bottom: 8rem;              /* keep your shortened path */
   left:0; right:0;
   pointer-events:none;
+  z-index: 1;                 /* line/fill below dots */
 }
+
 .fullLine{
   position:absolute;
   top:0; bottom:0;
-  left: calc((var(--pathWidth) - var(--lineWidth)) / 2);
+  left: 50%;
+  transform: translateX(-50%);              /* <- center by column midpoint */
   width: var(--lineWidth);
   background: linear-gradient(180deg, #e5e7eb, #d1d5db);
   border-radius:9999px;
 }
+
 .fullFill{
   position:absolute;
   top:0;
-  left: calc((var(--pathWidth) - var(--lineWidth)) / 2);
+  left: 50%;
+  transform: translateX(-50%);              /* <- same center as line */
   width: var(--lineWidth);
   background: linear-gradient(180deg, var(--maroon-600), #6a0f0f, var(--maroon-600));
   border-radius:9999px;
-  will-change: height; /* smoother */
+  will-change: height;
 }
 
-/* Milestone dots “bloom” with scroll proximity (scale/opacity via CSS vars) */
+/* Milestone dots */
 .milestoneLayer{
   position:absolute;
   top:0; bottom:0; left:0; right:0;
   pointer-events:none;
+  z-index: 2;                                 /* <- above line/fill */
 }
+
+/* optional: small nudge if your display has half-pixel rounding */
+.wrapper{ --dotNudgeX: 0px; }                 /* tweak to -0.5px / 0.5px if needed */
+
 .milestoneDot{
   position:absolute;
-  left: calc((var(--pathWidth) - var(--dotSize)) / 2);
+  left: 50%;
+  transform: translate(calc(-50% + var(--dotNudgeX)), -50%) scale(0); /* centered + hidden */
   width: var(--dotSize);
   height: var(--dotSize);
   border-radius:9999px;
   background: var(--maroon-600);
   box-shadow: 0 6px 18px rgba(80,0,0,.25);
-  transform: translateY(-50%) scale(var(--dotScale, 0));
-  opacity: var(--dotAlpha, 0);
+  opacity: 0;
+  transition: transform .18s ease-out, opacity .18s ease-out;
   will-change: transform, opacity;
+}
+
+.milestoneDotVisible{
+  transform: translate(calc(-50% + var(--dotNudgeX)), -50%) scale(1); /* centered + visible */
+  opacity: 1;
 }
 
 /* ===== CARDS (right column) ===== */
@@ -138,6 +155,17 @@
   line-height: 1.15;          /* avoid visual clipping */
   margin: .25rem 0 1rem 0;
 }
+/* Full-width heading centered to the entire grid */
+.sectionHeading{
+  grid-column: 1 / -1;      /* span titles | path | cards */
+  text-align: center;
+  font-size: clamp(1.9rem, 2.2vw + 1rem, 3rem);
+  font-weight: 800;
+  color: var(--maroon-600);
+  line-height: 1.15;
+  margin: .25rem 0 var(--headGap) 0;  /* respect the headGap variable */
+}
+
 .card{
   background:#fff;
   border:1px solid #e5e7eb;

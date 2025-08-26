@@ -44,7 +44,7 @@ export default function SleekFAQSection() {
           className="text-center mb-8"
         >
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Resources
+            Provided Resources
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-[#800000] to-[#500000] mx-auto rounded-full"></div>
         </motion.div>
@@ -74,7 +74,7 @@ export default function SleekFAQSection() {
                   className="flex-shrink-0"
                 >
                   {openIndex === index ? (
-                    <Minus className="w-5 h-5 text-emerald-600" />
+                    <Minus className="w-5 h-5 text-[#800000]" />
                   ) : (
                     <Plus className="w-5 h-5 text-gray-400" />
                   )}

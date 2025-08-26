@@ -1,19 +1,23 @@
 'use client';
-
 import { useRef, useState, useEffect, useMemo } from 'react';
 import styles from './Timeline.module.css';
 
-
-export default function Timeline({ items = [], heading = '' }) {
+export default function Timeline({
+  items = [],
+  heading = '',
+  /** NEW: extra space at the very top of the section (px) */
+  topPad = 52,
+  /** NEW: space between heading and first card (px) */
+  headGap = 24,
+}) {
   const safeItems = Array.isArray(items) ? items : [];
   const sectionRef = useRef(null);
   const cardRefs = useRef([]);
 
-  const [progress, setProgress] = useState(0);         // 0..1 center-synced
-  const [secH, setSecH] = useState(0);                 // section height (px)
-  const [milestones, setMilestones] = useState([]);    // [{rel, yPx}] per card
+  const [progress, setProgress] = useState(0);
+  const [secH, setSecH] = useState(0);
+  const [milestones, setMilestones] = useState([]);
 
-  // Center-synced progress (like snakepath)
   useEffect(() => {
     let raf = 0;
     const loop = () => {
@@ -23,7 +27,6 @@ export default function Timeline({ items = [], heading = '' }) {
         const topAbs = window.scrollY + r.top;
         const h = sec.offsetHeight || 1;
         const centerAbs = window.scrollY + window.innerHeight / 2;
-
         const raw = (centerAbs - topAbs) / h;
         const p = Math.max(0, Math.min(1, raw));
         setProgress(p);
@@ -35,12 +38,10 @@ export default function Timeline({ items = [], heading = '' }) {
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  // Measure card centers -> map to section progress + px for subjects/dots
   useEffect(() => {
     const measure = () => {
       const sec = sectionRef.current;
       if (!sec) return;
-
       const r = sec.getBoundingClientRect();
       const topAbs = window.scrollY + r.top;
       const h = sec.offsetHeight || 1;
@@ -49,8 +50,8 @@ export default function Timeline({ items = [], heading = '' }) {
         if (!el) return { rel: 0, yPx: 0 };
         const cr = el.getBoundingClientRect();
         const centerAbs = window.scrollY + cr.top + cr.height / 2;
-        const rel = (centerAbs - topAbs) / h;               // 0..1
-        const yPx = Math.max(0, Math.min(h, rel * h));      // px inside section
+        const rel = (centerAbs - topAbs) / h;
+        const yPx = Math.max(0, Math.min(h, rel * h));
         return { rel, yPx };
       });
 
@@ -59,7 +60,6 @@ export default function Timeline({ items = [], heading = '' }) {
     };
 
     measure();
-
     const ro = new ResizeObserver(measure);
     if (sectionRef.current) ro.observe(sectionRef.current);
     cardRefs.current.forEach((el) => el && ro.observe(el));
@@ -67,7 +67,6 @@ export default function Timeline({ items = [], heading = '' }) {
     window.addEventListener('resize', measure);
     window.addEventListener('scroll', measure, { passive: true });
 
-    // remeasure when images load
     const imgs = Array.from(sectionRef.current?.querySelectorAll('img') || []);
     const onImg = () => measure();
     imgs.forEach((img) => {
@@ -88,20 +87,16 @@ export default function Timeline({ items = [], heading = '' }) {
     };
   }, [safeItems.length]);
 
-  // Full-length fill height in px
   const fillPx = useMemo(() => {
     const h = Math.max(0, secH);
     const raw = Math.max(0, Math.min(h, progress * h));
-
     if (milestones.length > 0) {
       const lastY = milestones[milestones.length - 1].yPx;
-      return Math.min(raw, lastY); // stop at last dot
+      return Math.min(raw, lastY);
     }
     return raw;
   }, [progress, secH, milestones]);
 
-
-  // Current/active index (closest subject to progress)
   const activeIndex = useMemo(() => {
     if (!milestones.length) return 0;
     let best = 0, bestD = Infinity;
@@ -113,8 +108,18 @@ export default function Timeline({ items = [], heading = '' }) {
   }, [milestones, progress]);
 
   return (
-    <section ref={sectionRef} className={styles.wrapper}>
+    <section
+      ref={sectionRef}
+      className={styles.wrapper}
+      style={{
+        ['--topPad']: `${topPad}px`,
+        ['--headGap']: `${headGap}px`,
+      }}
+    >
       <div className={styles.inner}>
+        {/* NEW: full-width heading that spans all columns */}
+        {heading ? <h2 className={styles.sectionHeading}>{heading}</h2> : null}
+
         {/* SUBJECTS (left) */}
         <div className={styles.titlesCol}>
           <div className={styles.titlesLayer}>
@@ -136,8 +141,6 @@ export default function Timeline({ items = [], heading = '' }) {
             <div className={styles.fullLine} />
             <div className={styles.fullFill} style={{ height: `${fillPx}px` }} />
           </div>
-
-          {/* Milestone dots light up once passed */}
           <div className={styles.milestoneLayer}>
             {milestones.map((m, i) => {
               const passed = progress >= m.rel - 0.0001;
@@ -146,7 +149,6 @@ export default function Timeline({ items = [], heading = '' }) {
                   key={i}
                   className={`${styles.milestoneDot} ${passed ? styles.milestoneDotVisible : ''}`}
                   style={{ top: `${m.yPx}px` }}
-                  aria-hidden
                 />
               );
             })}
@@ -155,14 +157,8 @@ export default function Timeline({ items = [], heading = '' }) {
 
         {/* CARDS (right) */}
         <div className={styles.rightCol}>
-          {heading ? <h2 className={styles.heading}>{heading}</h2> : null}
-
           {safeItems.map((it, i) => (
-            <article
-              key={i}
-              ref={(el) => (cardRefs.current[i] = el)}
-              className={styles.card}
-            >
+            <article key={i} ref={(el) => (cardRefs.current[i] = el)} className={styles.card}>
               <div className={styles.mediaWrap}>
                 <img src={it.image} alt={it.title} className={styles.image} />
               </div>
@@ -172,10 +168,10 @@ export default function Timeline({ items = [], heading = '' }) {
               </div>
             </article>
           ))}
-
           <div className={styles.afterSpacer} aria-hidden />
         </div>
       </div>
     </section>
   );
+
 }
