@@ -1,4 +1,6 @@
-:root{
+/* All custom properties live on the local .wrapper (module-safe) */
+.wrapper{
+  /* Theme */
   --maroon-600:#500000;
   --maroon-700:#3a0000;
 
@@ -19,14 +21,13 @@
   /* Media */
   --mediaRatioW: 16;
   --mediaRatioH: 9;
-}
 
-/* ===== Section layout ===== */
-.wrapper{
+  /* Section layout spacing */
   width:100%;
   padding-top: var(--topPad);
   padding-bottom: var(--bottomPad);
 }
+
 .inner{
   max-width:85rem;
   margin:0 auto;
@@ -70,7 +71,7 @@
   transform: translateY(-50%) scale(1.04);
 }
 
-/* prevent extremely long titles from spilling */
+/* prevent extremely long titles from spilling (desktop only) */
 @media (min-width: 761px){
   .title{
     max-width: calc(var(--titlesWidth) - var(--titleGutter));
@@ -80,13 +81,10 @@
 }
 
 /* ===== PATH (center column) ===== */
-.pathCol{}
-
-/* Full-length rail (visually shortened with top/bottom) */
 .fullRail{
   position:absolute;
   top: 1.25rem;                /* reduce vertical span of the path */
-  bottom: 18rem;
+  bottom: 1.25rem;
   left:0; right:0;
   pointer-events:none;
 }
@@ -108,7 +106,7 @@
   will-change: height; /* smoother */
 }
 
-/* Milestone dots (become visible once passed) */
+/* Milestone dots “bloom” with scroll proximity (scale/opacity via CSS vars) */
 .milestoneLayer{
   position:absolute;
   top:0; bottom:0; left:0; right:0;
@@ -122,11 +120,10 @@
   border-radius:9999px;
   background: var(--maroon-600);
   box-shadow: 0 6px 18px rgba(80,0,0,.25);
-  transform: translateY(-50%);
-  opacity:0;
-  transition: opacity .18s ease-out;
+  transform: translateY(-50%) scale(var(--dotScale, 0));
+  opacity: var(--dotAlpha, 0);
+  will-change: transform, opacity;
 }
-.milestoneDotVisible{ opacity:1; }
 
 /* ===== CARDS (right column) ===== */
 .rightCol{
@@ -176,10 +173,15 @@
   line-height:1.65;
 }
 
+/* Optional spacer node is present but we keep it zero */
 .afterSpacer{ height:0; }
 
+/* ===== Responsive: tweak variables on the same local scope ===== */
 @media (max-width: 960px){
-  :root{ --titlesWidth: 220px; --pathWidth: 52px; }
+  .wrapper{
+    --titlesWidth: 220px;
+    --pathWidth: 52px;
+  }
 }
 
 @media (max-width: 760px){
