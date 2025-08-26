@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #ffffff;
+  --text: #111827;
+  --muted: #4b5563;
+  --maroon: #500000;
+  --maroon-2: #7d1534;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans, ui-sans-serif), sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 2rem;
+  max-width: 100%;
+}
+
+.logo { font-weight: bold; font-size: 1.5rem; }
+
+.contact-button {
+  padding: 0.6rem 1rem;
+  background-color: var(--maroon);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  align-items: center;
+  gap: 4rem;
+  width: 100%;
+  padding: 6rem 4vw 4rem;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.text-section p {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: var(--muted);
+}
+
+.cta-button {
+  padding: 0.8rem 1.5rem;
+  background-color: var(--maroon);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 2rem;
+}
+
+.office-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 400px;
+}
+
+.animated-gradient {
+  background: linear-gradient(-45deg, var(--maroon), var(--maroon-2), var(--maroon));
+  background-size: 400% 400%;
+  animation: gradientBG 12s ease infinite;
+}
+
+@keyframes gradientBG {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.timelineSection { background-color: #ffffff; }

@@ -1,0 +1,50 @@
+/* StatBox.module.css */
+.statContainer {
+  display: flex;
+  justify-content: center;
+  gap: 3.5rem;
+  flex-wrap: wrap;
+}
+
+.statBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  min-width: 240px;
+}
+
+.statValue {
+  position: relative;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.glowText {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #ff00006b;
+  animation: glow-flicker 8s infinite ease-in-out;
+}
+
+.glowOutline {
+  color: #500000;
+}
+
+@keyframes glow-flicker {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.02); }
+}
+
+.statLabel {
+  color: #4B5563;
+  font-size: 0.9rem;
+  text-align: center;
+}

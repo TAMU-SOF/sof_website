@@ -1,0 +1,189 @@
+:root{
+  --maroon-600:#500000;
+  --maroon-700:#3a0000;
+
+  /* Columns: subjects | path | cards */
+  --titlesWidth: 260px;
+  --pathWidth: 60px;
+
+  /* Path look */
+  --lineWidth: 6px;
+  --dotSize: 22px;
+
+  /* Spacing */
+  --titleGutter: 28px;      /* gap between titles and path */
+  --cardGap: 3rem;          /* gap between path and cards */
+  --topPad: 3.25rem;        /* top spacing so heading isn't clipped */
+  --bottomPad: 2rem;        /* keep end from feeling cropped */
+
+  /* Media */
+  --mediaRatioW: 16;
+  --mediaRatioH: 9;
+}
+
+/* ===== Section layout ===== */
+.wrapper{
+  width:100%;
+  padding-top: var(--topPad);
+  padding-bottom: var(--bottomPad);
+}
+.inner{
+  max-width:85rem;
+  margin:0 auto;
+  padding:0 1rem;
+  display:grid;
+  grid-template-columns: var(--titlesWidth) var(--pathWidth) 1fr; /* titles | path | cards */
+  gap: var(--cardGap);
+}
+
+/* Z-order so titles never hide under cards */
+.titlesCol{ position:relative; z-index:3; }
+.pathCol  { position:relative; z-index:2; }
+.rightCol { position:relative; z-index:1; }
+
+/* ===== SUBJECTS (left column) ===== */
+.titlesLayer{
+  position:absolute;
+  top:0; bottom:0; left:0; right:0;
+  pointer-events:none;
+  padding-left: var(--titleGutter);  /* push away from the path */
+  text-align:left;                   /* align words to the left */
+}
+.title{
+  position:absolute;                /* JS sets top: <px> to the card center */
+  transform: translateY(-50%);
+  display:inline-block;
+  font-weight:900;
+  font-size: clamp(1.2rem, 1.1vw + 1rem, 1.7rem);
+  color: var(--maroon-700);
+  line-height:1.2;
+  white-space:nowrap;
+
+  /* soft translucent pill for readability */
+  background: rgba(255,255,255,0.75);
+  padding: .35rem .75rem;
+  border-radius: .75rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,.05);
+}
+.titleActive{
+  color: var(--maroon-600);
+  transform: translateY(-50%) scale(1.04);
+}
+
+/* prevent extremely long titles from spilling */
+@media (min-width: 761px){
+  .title{
+    max-width: calc(var(--titlesWidth) - var(--titleGutter));
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* ===== PATH (center column) ===== */
+.pathCol{}
+
+/* Full-length rail (visually shortened with top/bottom) */
+.fullRail{
+  position:absolute;
+  top: 1.25rem;                /* reduce vertical span of the path */
+  bottom: 18rem;
+  left:0; right:0;
+  pointer-events:none;
+}
+.fullLine{
+  position:absolute;
+  top:0; bottom:0;
+  left: calc((var(--pathWidth) - var(--lineWidth)) / 2);
+  width: var(--lineWidth);
+  background: linear-gradient(180deg, #e5e7eb, #d1d5db);
+  border-radius:9999px;
+}
+.fullFill{
+  position:absolute;
+  top:0;
+  left: calc((var(--pathWidth) - var(--lineWidth)) / 2);
+  width: var(--lineWidth);
+  background: linear-gradient(180deg, var(--maroon-600), #6a0f0f, var(--maroon-600));
+  border-radius:9999px;
+  will-change: height; /* smoother */
+}
+
+/* Milestone dots (become visible once passed) */
+.milestoneLayer{
+  position:absolute;
+  top:0; bottom:0; left:0; right:0;
+  pointer-events:none;
+}
+.milestoneDot{
+  position:absolute;
+  left: calc((var(--pathWidth) - var(--dotSize)) / 2);
+  width: var(--dotSize);
+  height: var(--dotSize);
+  border-radius:9999px;
+  background: var(--maroon-600);
+  box-shadow: 0 6px 18px rgba(80,0,0,.25);
+  transform: translateY(-50%);
+  opacity:0;
+  transition: opacity .18s ease-out;
+}
+.milestoneDotVisible{ opacity:1; }
+
+/* ===== CARDS (right column) ===== */
+.rightCol{
+  display:flex;
+  flex-direction:column;
+  gap: 2rem;
+}
+.heading{
+  font-size: clamp(1.9rem, 2.2vw + 1rem, 3rem);
+  font-weight: 800;
+  color: var(--maroon-600);
+  line-height: 1.15;          /* avoid visual clipping */
+  margin: .25rem 0 1rem 0;
+}
+.card{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:1rem;
+  box-shadow:0 10px 28px rgba(80,0,0,.06);
+  overflow:hidden;
+  min-height: 260px;          /* helps prevent scrunching */
+}
+.mediaWrap{
+  width:100%;
+  aspect-ratio: var(--mediaRatioW) / var(--mediaRatioH);
+  background:#f3f4f6;
+  border-bottom:1px solid #f0f0f0;
+}
+.image{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.content{
+  padding:1.1rem 1.25rem 1.35rem;
+}
+.content h3{
+  margin:0 0 .45rem 0;
+  font-weight:800;
+  font-size:1.15rem;
+  color:var(--maroon-700);
+}
+.content p{
+  margin:0;
+  color:#4b5563;
+  line-height:1.65;
+}
+
+.afterSpacer{ height:0; }
+
+@media (max-width: 960px){
+  :root{ --titlesWidth: 220px; --pathWidth: 52px; }
+}
+
+@media (max-width: 760px){
+  .inner{ grid-template-columns: 1fr; gap: 1.5rem; }
+  .titlesCol, .pathCol{ display:none; }    /* clean mobile stack */
+  .wrapper{ padding-top: 2rem; padding-bottom: 2rem; }
+}
