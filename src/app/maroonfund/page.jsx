@@ -15,9 +15,9 @@ const officers = [
   ];
 
 const pmTeam = [
-  { name: 'Tulsi Rampalli', classYear: '’2X', role: 'PM', img: '/mfphoto.jpeg' },
-  { name: 'Thaily Jinuntuya', classYear: '’2X', role: 'PM', img: '/mfphoto.jpeg' },
-  { name: 'Jeremial Fernandez', classYear: '’2X', role: 'PM', img: '/mfphoto.jpeg' },
+  { name: 'Tulsi Rampalli', classYear: '’28', role: 'PM', img: '/mfphoto.jpeg' },
+  { name: 'Thaily Jinuntuya', classYear: '’29', role: 'PM', img: '/mfphoto.jpeg' },
+  { name: 'Jeremial Fernandez', classYear: '’29', role: 'PM', img: '/mfphoto.jpeg' },
   { name: 'Leyton Blankenburg', classYear: '’29', role: 'PM', img: '/mfphoto.jpeg' },
   { name: 'Ethan Cung', classYear: '’29', role: 'PM', img: '/mfphoto.jpeg' },
 ];
@@ -186,7 +186,9 @@ const pmTeam = [
           </div>
           <div className="mt-10 flex flex-col items-center gap-3">
             <h2 className="text-2xl md:text-3xl font-semibold text-[#500000] underline underline-offset-4">
-              Pitch Decks
+              
+
+
             </h2>
           </div>
         </section>
@@ -218,17 +220,12 @@ const pmTeam = [
                 A dual model trading system that uses machine learning to predict buy and sell opportunities in stock
                 trading. The buy side model identifies entry opportunities during price dips, while the sell side model
                 identifies exit opportunities near price peaks.
+                
               </p>
             </div>
           </div>
         </section>
       )}
-
-      <section className="max-w-7xl mx-auto px-6 py-10">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-6 font-sans text-[#500000]">
-          Investor Letters
-        </h1>
-      </section>
 
       </main>
     );

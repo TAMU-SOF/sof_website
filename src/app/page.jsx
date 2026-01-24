@@ -154,7 +154,7 @@ export default function Home() {
                 {
                   title: 'Maroon Fund',
                   description:
-                    'Placeholder for description',
+                    'Maroon Fund is a beginner-friendly, student-led investment fund at Texas A&M that manages $70,000 in university-allocated capital while teaching members how to invest in public equities and build quantitative models from the ground up. We start with the fundamentals by explaining why investing matters and what equity research or quantitative algorithms are before moving into hands-on stock selection, pitching, and model development. Analysts work in small teams led by portfolio managers or quant directors, allowing students with little to no background to learn quickly through real experience and structured guidance. Beyond investing, Maroon Fund is a close-knit community that offers firm trips, mentorship with professionals, and exposure to Texas A&M’s high-impact programs that help members break into competitive finance careers.',
                   image: '/mfphoto.jpeg',
                },
                 {
