@@ -8,18 +8,18 @@ import { useState } from 'react';
 
 const officers = [
     //{ name: 'Bhuvan Siddaveerappa', classYear: '’26', role: 'President and Co-CIO of Maroon Fund', img: '/bhuvan.jpeg' },
-    { name: 'Dhruv Datta', classYear: '’27', role: 'Co-CIO', img: '/dhruv.png' },
-    { name: 'Owen Conkey', classYear: '’29', role: 'Co-CIO', img: '/owen.jpeg' },
+    { name: 'Dhruv Datta', classYear: '’27', role: 'Co-Chief Investment Officer', img: '/dhruv.png' },
+    { name: 'Owen Conkey', classYear: '’29', role: 'Co-Chief Investment Officer', img: '/owen.jpeg' },
     { name: 'Landry Taylor', classYear: '’29', role: 'Co-Director of Quant Team',     img: '/landry.png' },
     { name: 'Diego Cancino', classYear: '’29', role: 'Co-Director of Quant Team',     img: '/diego.png' },
   ];
 
 const pmTeam = [
-  { name: 'Tulsi Rampalli', classYear: '’28', role: 'PM', img: '/mfphoto.jpeg' },
-  { name: 'Thaily Jinuntuya', classYear: '’29', role: 'PM', img: '/mfphoto.jpeg' },
-  { name: 'Jeremial Fernandez', classYear: '’29', role: 'PM', img: '/mfphoto.jpeg' },
-  { name: 'Leyton Blankenburg', classYear: '’29', role: 'PM', img: '/mfphoto.jpeg' },
-  { name: 'Ethan Cung', classYear: '’29', role: 'PM', img: '/mfphoto.jpeg' },
+  { name: 'Tulsi Rampalli', classYear: '’28', role: 'Portfolio Manager', img: '/mfphoto.jpeg' },
+  { name: 'Thaily Jinuntuya', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg' },
+  { name: 'Jeremial Fernandez', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg' },
+  { name: 'Leyton Blankenburg', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg' },
+  { name: 'Ethan Cung', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg' },
 ];
   
   export default function About() {
@@ -156,7 +156,7 @@ const pmTeam = [
           </div>
           <div className="mt-8 flex flex-col items-center gap-3">
             <h2 className="text-2xl md:text-3xl font-semibold text-[#500000] underline underline-offset-4">
-              PM Team
+              Portfolio Manager Team
             </h2>
           </div>
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 place-items-center">
@@ -201,7 +201,7 @@ const pmTeam = [
           </h1>
           <div className="mt-6 grid grid-cols-1 md:grid-cols-[16rem_1fr] items-start gap-8 md:gap-x-0 w-full">
             <div className="flex flex-col items-center gap-4">
-              <h2 className="text-2xl md:text-3xl font-semibold text-[#500000] underline underline-offset-4">PM</h2>
+
               <img
                 src="/jjp.png"
                 alt="Quantitative team placeholder"
@@ -211,7 +211,7 @@ const pmTeam = [
                 <p className="text-xl font-semibold">
                   Joey Paul <span className="font-normal">’29</span>
                 </p>
-                <p className="mt-3 text-lg text-gray-700">PM</p>
+                <p className="mt-3 text-lg text-gray-700">Portfolio Manager</p>
               </div>
             </div>
             <div className="flex flex-col items-start gap-4 max-w-xl md:pl-32">
