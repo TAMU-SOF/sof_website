@@ -26,6 +26,7 @@ export default function Navbar() {
 
   const navLinks = [
     ['/', 'Home'],
+    ['/maroonfund', 'Maroon Fund'],
     ['/contact', 'Contact Us'],
   ]
 

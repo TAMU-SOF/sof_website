@@ -24,7 +24,7 @@ export default function About() {
       >
         {/* Title */}
         <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-12 font-serif text-[#500000]">
-          Officer Team
+          Executive Leadership
         </h1>
 
         {/* Grid of officers */}

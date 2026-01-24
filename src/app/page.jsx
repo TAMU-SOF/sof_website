@@ -68,7 +68,7 @@ export default function Home() {
                 </p>
                 {/* CTA Buttons (stack on mobile, side-by-side ≥ sm) */}
                 <div className="mt-1 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                  <Link href="https://app.scholarsoffinance.org/application/?universityId=652593b1-e24e-44a3-a896-29cf08961604" className="w-full sm:w-auto">
+                  <Link href="https://app.scholarsoffinance.org/application/?universityId=652593b1-e24e-44a3-a896-29cf08961604&utm_source=ig&utm_medium=social&utm_content=link_in_bio" className="w-full sm:w-auto">
                     <motion.button
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
@@ -78,7 +78,7 @@ export default function Home() {
                     </motion.button>
                   </Link>
 
-                  <Link href="https://forms.gle/wdBp2GYrpD3LzHop6" className="w-full sm:w-auto">
+                  <Link href="https://forms.gle/PpwFta8Ln9bszhNP6" className="w-full sm:w-auto">
                     <motion.button
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
@@ -152,6 +152,12 @@ export default function Home() {
                   image: '/SS.jpg',
                 },
                 {
+                  title: 'Maroon Fund',
+                  description:
+                    'Placeholder for description',
+                  image: '/mfphoto.jpeg',
+               },
+                {
                   title: 'LDP',
                   description:
                     'The Leadership Development Program (LDP) is an 8-week program designed to equip members with the principles and skills to be ethical and effective leaders. The program is rooted in the 12 principles and 4 SOF values: Integrity, Humility, Compassion, and Excellence.',
@@ -162,12 +168,6 @@ export default function Home() {
                   description:
                     'SOF TAMU will host a few socials throughout the year. In the fall semester, look out for tailgates and crawfish boil in the spring. We also host other fun events every month!',
                   image: '/Socials.jpg',
-                },
-                {
-                  title: 'Stock Pitch Competition',
-                  description:
-                    'Every year, SOF and AIC host the annual TAMU stock pitch competition. Texas A&M students will be able to pitch a stock they researched to industry professionals for cash prizes.',
-                  image: '/SPC.png',
                 },
               ]}
             />
