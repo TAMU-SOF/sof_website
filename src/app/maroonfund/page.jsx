@@ -42,13 +42,13 @@ const pmTeam = [
         <img
           src="/mfphoto.jpeg"
           alt=""
-          className="absolute left-1/2 top-0 -translate-x-1/2 w-screen max-w-none h-96 md:h-[28rem] object-cover opacity-15"
+          className="absolute left-1/2 top-0 -translate-x-1/2 w-screen max-w-none h-72 md:h-[22rem] object-cover opacity-15"
         />
         <div className="flex flex-col items-center justify-center">
           <img
             src="/maroon-fund-logo-transparent.png"
             alt="Maroon Fund logo"
-            className="w-72 h-72 md:w-[22rem] md:h-[22rem] object-contain opacity-90"
+            className="w-60 h-60 md:w-[18rem] md:h-[18rem] object-contain opacity-90"
           />
 
           {/*
@@ -57,8 +57,8 @@ const pmTeam = [
           </h1>
           */}
 
-          <div className="flex flex-col gap-0 mt-32">
-            <p className="text-[28px] md:text-[32px] leading-[1.35] text-black font-semibold tracking-normal max-w-5xl mx-auto text-center">
+          <div className="flex flex-col gap-0 mt-24">
+            <p className="text-[23px] md:text-[27px] leading-[1.3] text-black font-semibold tracking-normal max-w-5xl mx-auto text-center">
               Student-Led investment club at Texas A&amp;M that manages $70,000 in university-allocated capital.
               We teach students how to invest in public equities and build quantitative models from the ground up.
             </p>
@@ -140,7 +140,7 @@ const pmTeam = [
           <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-6 font-sans text-[#500000]">
             Equities
           </h1>
-          <div className="mt-4 grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-6 items-start w-full max-w-none">
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-8 items-start w-full max-w-none">
             <img
               src="/Equitiesplaceholder.jpeg"
               alt="Equities team placeholder"
@@ -154,12 +154,12 @@ const pmTeam = [
               after professional hedge funds.
             </p>
           </div>
-          <div className="mt-8 flex flex-col items-center gap-3">
+          <div className="mt-10 flex flex-col items-center gap-4">
             <h2 className="text-2xl md:text-3xl font-semibold text-[#500000] underline underline-offset-4">
               Portfolio Manager Team
             </h2>
           </div>
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 place-items-center">
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-14 place-items-center">
             {pmTeam.map((member, index) => {
               const isLast = index === pmTeam.length - 1;
               return (
