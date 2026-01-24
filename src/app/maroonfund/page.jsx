@@ -67,7 +67,7 @@ const pmTeam = [
       </motion.section>
 
       <section className="max-w-7xl mx-auto px-6 py-10">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-6 font-serif text-[#500000]">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-6 font-sans text-[#500000]">
           Application
         </h1>
         <div className="flex flex-col items-center gap-4">
@@ -92,7 +92,7 @@ const pmTeam = [
         transition={{ duration: 0.5 }}
       >
         {/* Title */}
-        <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-12 font-serif text-[#500000]">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-12 font-sans text-[#500000]">
           Executive Leadership
         </h1>
 
@@ -137,7 +137,7 @@ const pmTeam = [
 
       {activeTab === 'equities' && (
         <section className="max-w-7xl mx-auto px-6 py-10">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-6 font-serif text-[#500000]">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-6 font-sans text-[#500000]">
             Equities
           </h1>
           <div className="mt-4 grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-6 items-start w-full max-w-none">
@@ -194,7 +194,7 @@ const pmTeam = [
 
       {activeTab === 'quantitative' && (
         <section className="max-w-7xl mx-auto px-6 py-10">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-6 font-serif text-[#500000]">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-6 font-sans text-[#500000]">
             Quantitative
           </h1>
           <div className="mt-6 grid grid-cols-1 md:grid-cols-[16rem_1fr] items-start gap-8 md:gap-x-0 w-full">
@@ -225,7 +225,7 @@ const pmTeam = [
       )}
 
       <section className="max-w-7xl mx-auto px-6 py-10">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-6 font-serif text-[#500000]">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-6 font-sans text-[#500000]">
           Investor Letters
         </h1>
       </section>
