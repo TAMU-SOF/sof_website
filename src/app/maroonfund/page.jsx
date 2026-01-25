@@ -219,7 +219,7 @@ const pmTeam = [
               <p className="text-xl md:text-2xl leading-relaxed text-gray-700 text-left font-semibold">
                 A dual model trading system that uses machine learning to predict buy and sell opportunities in stock
                 trading. The buy side model identifies entry opportunities during price dips, while the sell side model
-                identifies exit opportunities near price peaks. Our portfolio analysis is powered by the Alpha Vantage Open-Access Stock Market API.
+                identifies exit opportunities near price peaks. Our portfolio analysis is powered by the <a href="https://www.alphavantage.co/" style={{ color: 'blue', textDecoration: 'underline' }}>Alpha Vantage</a> Open-Access Stock Market API.
                 
               </p>
             </div>
