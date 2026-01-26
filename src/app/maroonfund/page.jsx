@@ -204,7 +204,7 @@ const pmTeam = [
 
               <img
                 src="/jjp.png"
-                alt="Quantitative team placeholder"
+                alt="Joey Profile"
                 className="w-56 h-56 md:w-64 md:h-64 rounded-full object-cover shadow-lg ring-1 ring-gray-200"
               />
               <div className="text-center">
@@ -214,14 +214,36 @@ const pmTeam = [
                 <p className="mt-3 text-lg text-gray-700">Portfolio Manager</p>
               </div>
             </div>
-            <div className="flex flex-col items-start gap-4 max-w-xl md:pl-32">
+            <div className="flex flex-col items-start gap-4 max-w-5xl md:pl-32">
               <h2 className="text-2xl md:text-3xl font-semibold text-[#500000] underline underline-offset-4">Models</h2>
-              <p className="text-xl md:text-2xl leading-relaxed text-gray-700 text-left font-semibold">
-                A dual model trading system that uses machine learning to predict buy and sell opportunities in stock
-                trading. The buy side model identifies entry opportunities during price dips, while the sell side model
-                identifies exit opportunities near price peaks. Our portfolio analysis is powered by the <a href="https://www.alphavantage.co/" style={{ color: 'blue', textDecoration: 'underline' }}>Alpha Vantage</a> Open-Access Stock Market API.
-                
-              </p>
+              <ol className="mt-4 list-[upper-roman] pl-6 space-y-4 marker:font-semibold">
+                <li>
+                    <p className="text-lg md:text-xl font-semibold leading-relaxed text-gray-700">
+                    Dip Detection Model
+                    </p>
+                    <p className="mt-2 text-lg md:text-xl leading-relaxed text-gray-700">
+                        A dual model trading system that uses machine learning to predict buy and sell opportunities in stock
+                        trading. The buy side model identifies entry opportunities during price dips, while the sell side model
+                        identifies exit opportunities near price peaks. Our portfolio analysis is powered by the <a href="https://www.alphavantage.co/" style={{ color: 'blue', textDecoration: 'underline' }}>Alpha Vantage</a> Open-Access Stock Market API.
+                    </p>
+                </li>
+                <li>
+                    <p className="text-lg md:text-xl leading-relaxed text-gray-700 font-semibold">
+                    Porfolio Allocation Algorithm
+                    </p>
+                    <p className="mt-2 text-lg md:text-xl leading-relaxed text-gray-700">
+                        An algorithm that allocates capital to trades based on confidence of returns to allow for optimal risk-adjusted returns.
+                    </p>
+                </li>
+                <li>
+                    <p className="text-lg md:text-xl leading-relaxed text-gray-700 font-semibold">
+                    Quantile Regression Neural Network
+                    </p>
+                    <p className="mt-2 text-lg md:text-xl leading-relaxed text-gray-700">
+                        A neural network that uses quantile regression...
+                    </p>
+                </li>
+              </ol>
             </div>
           </div>
         </section>
