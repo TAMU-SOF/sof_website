@@ -8,18 +8,18 @@ import { useState } from 'react';
 
 const officers = [
     //{ name: 'Bhuvan Siddaveerappa', classYear: '’26', role: 'President and Co-CIO of Maroon Fund', img: '/bhuvan.jpeg' },
-    { name: 'Dhruv Datta', classYear: '’27', role: 'Co-Chief Investment Officer', img: '/dhruv.png' },
-    { name: 'Owen Conkey', classYear: '’29', role: 'Co-Chief Investment Officer', img: '/owen.jpeg' },
-    { name: 'Landry Taylor', classYear: '’29', role: 'Co-Director of Quant Team',     img: '/landry.png' },
-    { name: 'Diego Cancino', classYear: '’29', role: 'Co-Director of Quant Team',     img: '/diego.png' },
+    { name: 'Dhruv Datta', classYear: '’27', role: 'Co-Chief Investment Officer', img: '/dhruv.png', linkedin: 'https://www.linkedin.com/in/dhruv-datta123/' },
+    { name: 'Owen Conkey', classYear: '’29', role: 'Co-Chief Investment Officer', img: '/owen.jpeg', linkedin: 'https://www.linkedin.com/in/owen-conkey/' },
+    { name: 'Landry Taylor', classYear: '’29', role: 'Co-Director of Quant Team',     img: '/landry.png', linkedin: 'https://www.linkedin.com/in/landry-taylor-9143bb301/' },
+    { name: 'Diego Cancino', classYear: '’29', role: 'Co-Director of Quant Team',     img: '/diego.png', linkedin: 'https://www.linkedin.com/in/diego-cancino-92a3a0106/' },
   ];
 
 const pmTeam = [
-  { name: 'Tulsi Rampalli', classYear: '’28', role: 'Portfolio Manager', img: '/mfphoto.jpeg' },
-  { name: 'Thaily Jinuntuya', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg' },
-  { name: 'Jeremial Fernandez', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg' },
-  { name: 'Leyton Blankenburg', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg' },
-  { name: 'Ethan Cung', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg' },
+  { name: 'Tulsi Rampalli', classYear: '’28', role: 'Portfolio Manager', img: '/mfphoto.jpeg', linkedin: 'https://www.linkedin.com/in/tulsi-rampalli/' },
+  { name: 'Thaily Jinuntuya', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg', linkedin: 'https://www.linkedin.com/in/thaily-jinuntuya-6437262a9/' },
+  { name: 'Jeremial Fernandez', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg', linkedin: 'https://www.linkedin.com/in/jeremial-fernandez-123456789/' },
+  { name: 'Leyton Blankenburg', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg', linkedin: 'https://www.linkedin.com/in/leytonblankenburg/' },
+  { name: 'Ethan Cung', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg', linkedin: 'https://www.linkedin.com/in/ethancung/' },
 ];
   
   export default function About() {
@@ -107,7 +107,9 @@ const pmTeam = [
               />
               <div className="mt-6">
                 <p className="text-xl font-semibold">
-                  {o.name} <span className="font-normal">{o.classYear}</span>
+                  <a href={o.linkedin} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    {o.name}
+                  </a> <span className="font-normal">{o.classYear}</span>
                 </p>
                 <p className="mt-3 text-lg text-gray-700">{o.role}</p>
               </div>
@@ -176,7 +178,9 @@ const pmTeam = [
                   />
                   <div className="mt-6">
                     <p className="text-xl font-semibold">
-                      {member.name} <span className="font-normal">{member.classYear}</span>
+                      <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                        {member.name}
+                      </a> <span className="font-normal">{member.classYear}</span>
                     </p>
                     <p className="mt-3 text-lg text-gray-700">{member.role}</p>
                   </div>
@@ -209,7 +213,9 @@ const pmTeam = [
               />
               <div className="text-center">
                 <p className="text-xl font-semibold">
-                  Joey Paul <span className="font-normal">’29</span>
+                  <a href="https://www.linkedin.com/in/joeyjosephpaul23/" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    Joey Paul
+                  </a> <span className="font-normal">’29</span>
                 </p>
                 <p className="mt-3 text-lg text-gray-700">Portfolio Manager</p>
               </div>
@@ -240,7 +246,7 @@ const pmTeam = [
                     Quantile Regression Neural Network
                     </p>
                     <p className="mt-2 text-lg md:text-xl leading-relaxed text-gray-700">
-                        A neural network that uses quantile regression...
+                        LSTM (Long Short-Term Memore) quantile regression model that predicts price distributions, not just point estimate, enabling probalistic trading strategies and options market analysis.
                     </p>
                 </li>
               </ol>
@@ -251,14 +257,14 @@ const pmTeam = [
 
     <section className="max-w-7xl mx-auto px-6 py-10">
     <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-6 font-sans text-[#500000]">
-        Holdings
+        Portfolio
     </h1>
     <div className="w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-lg border border-gray-200">
         <iframe
         src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSTQ0JhXbgXZhFQxaUhkx3pktXoVaJoWhaQyJR17e0NpxfPJrnSf9xOEsPIBEo67g/pubhtml?gid=557789898&amp;single=true&amp;widget=true&amp;headers=false"
         className="w-full h-full"
         loading="lazy"
-        title="Holdings Spreadsheet"
+        title="Portfolio Spreadsheet"
         />
     </div>
     </section>
