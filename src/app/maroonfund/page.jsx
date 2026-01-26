@@ -246,7 +246,7 @@ const pmTeam = [
                     Quantile Regression Neural Network
                     </p>
                     <p className="mt-2 text-lg md:text-xl leading-relaxed text-gray-700">
-                        LSTM (Long Short-Term Memore) quantile regression model that predicts price distributions, not just point estimate, enabling probalistic trading strategies and options market analysis.
+                        LSTM (Long Short-Term Memory) quantile regression model that predicts price distributions, not just point estimate, enabling probalistic trading strategies and options market analysis.
                     </p>
                 </li>
               </ol>
