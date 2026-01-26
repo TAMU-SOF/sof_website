@@ -227,6 +227,20 @@ const pmTeam = [
         </section>
       )}
 
+    <section className="max-w-7xl mx-auto px-6 py-10">
+    <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-6 font-sans text-[#500000]">
+        Holdings
+    </h1>
+    <div className="w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+        <iframe
+        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSTQ0JhXbgXZhFQxaUhkx3pktXoVaJoWhaQyJR17e0NpxfPJrnSf9xOEsPIBEo67g/pubhtml?gid=557789898&amp;single=true&amp;widget=true&amp;headers=false"
+        className="w-full h-full"
+        loading="lazy"
+        title="Holdings Spreadsheet"
+        />
+    </div>
+    </section>
+
       </main>
     );
   }
