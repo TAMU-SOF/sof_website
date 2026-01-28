@@ -15,8 +15,8 @@ const officers = [
   ];
 
 const pmTeam = [
-  { name: 'Tulsi Rampalli', classYear: '’28', role: 'Portfolio Manager', img: '/mfphoto.jpeg', linkedin: 'https://www.linkedin.com/in/tulsi-rampalli/' },
-  { name: 'Thaily Jinuntuya', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg', linkedin: 'https://www.linkedin.com/in/thaily-jinuntuya-6437262a9/' },
+  { name: 'Tulsi Rampalli', classYear: '’27', role: 'Portfolio Manager', img: '/mfphoto.jpeg', linkedin: 'https://www.linkedin.com/in/tulsi-rampalli/' },
+  { name: 'Thaily Jinuntuya', classYear: '’26', role: 'Portfolio Manager', img: '/mfphoto.jpeg', linkedin: 'https://www.linkedin.com/in/thaily-jinuntuya-6437262a9/' },
   { name: 'Jeremial Fernandez', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg', linkedin: 'https://www.linkedin.com/in/jeremial-fernandez-123456789/' },
   { name: 'Leyton Blankenburg', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg', linkedin: 'https://www.linkedin.com/in/leytonblankenburg/' },
   { name: 'Ethan Cung', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg', linkedin: 'https://www.linkedin.com/in/ethancung/' },
