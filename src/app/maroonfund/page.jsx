@@ -8,17 +8,17 @@ import { useState } from 'react';
 
 const officers = [
     //{ name: 'Bhuvan Siddaveerappa', classYear: '’26', role: 'President and Co-CIO of Maroon Fund', img: '/bhuvan.jpeg' },
-    { name: 'Dhruv Datta', classYear: '’27', role: 'Co-Chief Investment Officer', img: '/dhruvprof.png' },
-    { name: 'Owen Conkey', classYear: '’29', role: 'Co-Chief Investment Officer', img: '/owenprof.png' },
-    { name: 'Landry Taylor', classYear: '’29', role: 'Co-Director of Quant Team',     img: '/landryprof.png' },
-    { name: 'Diego Cancino', classYear: '’29', role: 'Co-Director of Quant Team',     img: '/diegoprof.png' },
+    { name: 'Dhruv Datta', classYear: '’27', role: 'Co-Chief Investment Officer', img: '/dhruvprof.PNG' },
+    { name: 'Owen Conkey', classYear: '’29', role: 'Co-Chief Investment Officer', img: '/owenprof.PNG' },
+    { name: 'Landry Taylor', classYear: '’29', role: 'Co-Director of Quant Team',     img: '/landryprof.PNG' },
+    { name: 'Diego Cancino', classYear: '’29', role: 'Co-Director of Quant Team',     img: '/diegoprof.PNG' },
   ];
 
 const pmTeam = [
-  { name: 'Thaily Jinuntuya', classYear: '’29', role: 'Portfolio Manager', img: '/thailyprof.png' },
-  { name: 'Jeremial Fernandez', classYear: '’29', role: 'Portfolio Manager', img: '/jeremialprof.png' },
-  { name: 'Leyton Blankenburg', classYear: '’29', role: 'Portfolio Manager', img: '/leytonprof.png' },
-  { name: 'Ethan Cung', classYear: '’29', role: 'Portfolio Manager', img: '/ethanprof.png' },
+  { name: 'Thaily Jinuntuya', classYear: '’29', role: 'Portfolio Manager', img: '/thailyprof.PNG' },
+  { name: 'Jeremial Fernandez', classYear: '’29', role: 'Portfolio Manager', img: '/jeremialprof.PNG' },
+  { name: 'Leyton Blankenburg', classYear: '’29', role: 'Portfolio Manager', img: '/leytonprof.PNG' },
+  { name: 'Ethan Cung', classYear: '’29', role: 'Portfolio Manager', img: '/ethanprof.PNG' },
 ];
   
   export default function About() {
