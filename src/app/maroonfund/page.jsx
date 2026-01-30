@@ -8,18 +8,17 @@ import { useState } from 'react';
 
 const officers = [
     //{ name: 'Bhuvan Siddaveerappa', classYear: '’26', role: 'President and Co-CIO of Maroon Fund', img: '/bhuvan.jpeg' },
-    { name: 'Dhruv Datta', classYear: '’27', role: 'Co-Chief Investment Officer', img: '/dhruv.png' },
-    { name: 'Owen Conkey', classYear: '’29', role: 'Co-Chief Investment Officer', img: '/owen.jpeg' },
-    { name: 'Landry Taylor', classYear: '’29', role: 'Co-Director of Quant Team',     img: '/landry.png' },
-    { name: 'Diego Cancino', classYear: '’29', role: 'Co-Director of Quant Team',     img: '/diego.png' },
+    { name: 'Dhruv Datta', classYear: '’27', role: 'Co-Chief Investment Officer', img: '/dhruvprof.png' },
+    { name: 'Owen Conkey', classYear: '’29', role: 'Co-Chief Investment Officer', img: '/owenprof.png' },
+    { name: 'Landry Taylor', classYear: '’29', role: 'Co-Director of Quant Team',     img: '/landryprof.png' },
+    { name: 'Diego Cancino', classYear: '’29', role: 'Co-Director of Quant Team',     img: '/diegoprof.png' },
   ];
 
 const pmTeam = [
-  { name: 'Tulsi Rampalli', classYear: '’28', role: 'Portfolio Manager', img: '/mfphoto.jpeg' },
-  { name: 'Thaily Jinuntuya', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg' },
-  { name: 'Jeremial Fernandez', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg' },
-  { name: 'Leyton Blankenburg', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg' },
-  { name: 'Ethan Cung', classYear: '’29', role: 'Portfolio Manager', img: '/mfphoto.jpeg' },
+  { name: 'Thaily Jinuntuya', classYear: '’29', role: 'Portfolio Manager', img: '/thailyprof.png' },
+  { name: 'Jeremial Fernandez', classYear: '’29', role: 'Portfolio Manager', img: '/jeremialprof.png' },
+  { name: 'Leyton Blankenburg', classYear: '’29', role: 'Portfolio Manager', img: '/leytonprof.png' },
+  { name: 'Ethan Cung', classYear: '’29', role: 'Portfolio Manager', img: '/ethanprof.png' },
 ];
   
   export default function About() {
@@ -159,15 +158,12 @@ const pmTeam = [
               Portfolio Manager Team
             </h2>
           </div>
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-14 place-items-center">
+          <div className="mt-10 grid grid-cols-4 gap-14 place-items-center">
             {pmTeam.map((member, index) => {
-              const isLast = index === pmTeam.length - 1;
               return (
                 <div
                   key={`${member.name}-${index}`}
-                  className={`flex flex-col items-center text-center ${
-                    isLast ? 'sm:col-span-2 lg:col-start-2 lg:col-span-2 justify-self-center' : ''
-                  }`}
+                  className="flex flex-col items-center text-center"
                 >
                   <img
                     src={member.img}
@@ -261,6 +257,24 @@ const pmTeam = [
         title="Holdings Spreadsheet"
         />
     </div>
+    </section>
+
+    <section className="max-w-7xl mx-auto px-6 py-10">
+      <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-6 font-sans text-[#500000]">
+        Partnerships
+      </h1>
+      <div className="flex flex-col items-center gap-4"> 
+        <p className="text-lg md:text-xl font-semibold text-[#500000] ">
+          We are grateful to our partners for their support and resources.
+        </p>
+      </div>
+      <div className="mt-4 flex justify-center">
+        <img
+          src="/WSO-logo.png"
+          alt="WallStreetOasis"
+          className="block max-w-[200px] h-auto ring-1 ring-gray-200 rounded-xl"
+        />
+      </div>
     </section>
 
       </main>
