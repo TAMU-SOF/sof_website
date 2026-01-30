@@ -106,7 +106,9 @@ const pmTeam = [
               />
               <div className="mt-6">
                 <p className="text-xl font-semibold">
-                  {o.name} <span className="font-normal">{o.classYear}</span>
+                  <a href={o.linkedin} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    {o.name}
+                  </a> <span className="font-normal">{o.classYear}</span>
                 </p>
                 <p className="mt-3 text-lg text-gray-700">{o.role}</p>
               </div>
@@ -172,7 +174,9 @@ const pmTeam = [
                   />
                   <div className="mt-6">
                     <p className="text-xl font-semibold">
-                      {member.name} <span className="font-normal">{member.classYear}</span>
+                      <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                        {member.name}
+                      </a> <span className="font-normal">{member.classYear}</span>
                     </p>
                     <p className="mt-3 text-lg text-gray-700">{member.role}</p>
                   </div>
@@ -205,7 +209,9 @@ const pmTeam = [
               />
               <div className="text-center">
                 <p className="text-xl font-semibold">
-                  Joey Paul <span className="font-normal">’29</span>
+                  <a href="https://www.linkedin.com/in/joeyjosephpaul23/" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    Joey Paul
+                  </a> <span className="font-normal">’29</span>
                 </p>
                 <p className="mt-3 text-lg text-gray-700">Portfolio Manager</p>
               </div>
@@ -236,7 +242,7 @@ const pmTeam = [
                     Quantile Regression Neural Network
                     </p>
                     <p className="mt-2 text-lg md:text-xl leading-relaxed text-gray-700">
-                        A neural network that uses quantile regression...
+                        LSTM (Long Short-Term Memory) quantile regression model that predicts price distributions, not just point estimate, enabling probalistic trading strategies and options market analysis.
                     </p>
                 </li>
               </ol>
@@ -247,14 +253,14 @@ const pmTeam = [
 
     <section className="max-w-7xl mx-auto px-6 py-10">
     <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-6 font-sans text-[#500000]">
-        Holdings
+        Portfolio
     </h1>
     <div className="w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-lg border border-gray-200">
         <iframe
         src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSTQ0JhXbgXZhFQxaUhkx3pktXoVaJoWhaQyJR17e0NpxfPJrnSf9xOEsPIBEo67g/pubhtml?gid=557789898&amp;single=true&amp;widget=true&amp;headers=false"
         className="w-full h-full"
         loading="lazy"
-        title="Holdings Spreadsheet"
+        title="Portfolio Spreadsheet"
         />
     </div>
     </section>
