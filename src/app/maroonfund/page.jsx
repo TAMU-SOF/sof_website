@@ -265,24 +265,6 @@ const pmTeam = [
     </div>
     </section>
 
-    <section className="max-w-7xl mx-auto px-6 py-10">
-      <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-6 font-sans text-[#500000]">
-        Partnerships
-      </h1>
-      <div className="flex flex-col items-center gap-4"> 
-        <p className="text-lg md:text-xl font-semibold text-[#500000] ">
-          We are grateful to our partners for their support and resources.
-        </p>
-      </div>
-      <div className="mt-4 flex justify-center">
-        <img
-          src="/WSO-logo.png"
-          alt="WallStreetOasis"
-          className="block max-w-[200px] h-auto ring-1 ring-gray-200 rounded-xl"
-        />
-      </div>
-    </section>
-
       </main>
     );
   }
