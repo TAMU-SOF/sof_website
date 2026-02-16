@@ -78,15 +78,7 @@ export default function Home() {
                     </motion.button>
                   </Link>
 
-                  <Link href="https://forms.gle/PpwFta8Ln9bszhNP6" className="w-full sm:w-auto">
-                    <motion.button
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="box-border h-12 px-6 border-0 border-[#500000] text-[#500000] font-semibold rounded-xl hover:bg-[#fdf5f5] transition-all duration-300 w-full sm:w-auto"
-                    >
-                      Apply to Maroon Fund
-                    </motion.button>
-                  </Link>
+                  
                 </div>
 
               </div>
@@ -154,7 +146,7 @@ export default function Home() {
                 {
                   title: 'Maroon Fund',
                   description:
-                    'Maroon Fund is a beginner-friendly, student-led investment fund at Texas A&M that manages $70,000 in university-allocated capital while teaching members how to invest in public equities and build quantitative models from the ground up. We start with the fundamentals by explaining why investing matters and what equity research or quantitative algorithms are before moving into hands-on stock selection, pitching, and model development. Analysts work in small teams led by portfolio managers or quant directors, allowing students with little to no background to learn quickly through real experience and structured guidance. Beyond investing, Maroon Fund is a close-knit community that offers firm trips, mentorship with professionals, and exposure to Texas A&M’s high-impact programs that help members break into competitive finance careers.',
+                    'Student-Led investment club at Texas A&amp;M that manages $70,000 in university-allocated capital. We teach students how to invest in public equities and build quantitative models from the ground up. Maroon Fund is a subsection of Scholars of Finance, but is transitioning into a new organization called Maroon Investment Club.',
                   image: '/mfphoto.jpeg',
                },
                 {

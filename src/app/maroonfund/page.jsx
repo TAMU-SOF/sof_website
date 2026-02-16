@@ -33,7 +33,7 @@ const pmTeam = [
         <Navbar />
   
       <motion.section
-        className="relative max-w-6xl mx-auto px-6 pt-8 pb-4"
+        className="relative max-w-6xl mx-auto px-6 pt-72 md:pt-[22rem] pb-4"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -44,11 +44,6 @@ const pmTeam = [
           className="absolute left-1/2 top-0 -translate-x-1/2 w-screen max-w-none h-72 md:h-[22rem] object-cover opacity-15"
         />
         <div className="flex flex-col items-center justify-center">
-          <img
-            src="/maroon-fund-logo-transparent.png"
-            alt="Maroon Fund logo"
-            className="w-60 h-60 md:w-[18rem] md:h-[18rem] object-contain opacity-90"
-          />
 
           {/*
           <h1 className="mt-0 text-5xl md:text-6xl font-extrabold text-center font-serif text-[#500000]">
@@ -56,7 +51,7 @@ const pmTeam = [
           </h1>
           */}
 
-          <div className="flex flex-col gap-0 mt-24">
+          <div className="flex flex-col gap-0 mt-8">
             <p className="text-[23px] md:text-[27px] leading-[1.3] text-black font-semibold tracking-normal max-w-5xl mx-auto text-center">
               Student-Led investment club at Texas A&amp;M that manages $70,000 in university-allocated capital.
               We teach students how to invest in public equities and build quantitative models from the ground up. Maroon Fund is a subsection of Scholars of Finance, but is transitioning into a new organization called Maroon Investment Club.
