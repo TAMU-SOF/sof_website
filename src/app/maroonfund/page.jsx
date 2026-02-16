@@ -15,10 +15,10 @@ const officers = [
   ];
 
 const pmTeam = [
-  { name: 'Thaily Jinuntuya', classYear: '’29', role: 'Portfolio Manager', img: '/thailyprof.PNG' },
-  { name: 'Jeremial Fernandez', classYear: '’29', role: 'Portfolio Manager', img: '/jeremialprof.PNG' },
+  { name: 'Thaily Jinuntuya', classYear: '’26', role: 'Portfolio Manager', img: '/thailyprof.PNG' },
+  { name: 'Jeremiel Fernandez', classYear: '’28', role: 'Portfolio Manager', img: '/jeremialprof.PNG' },
   { name: 'Leyton Blankenburg', classYear: '’29', role: 'Portfolio Manager', img: '/leytonprof.PNG' },
-  { name: 'Ethan Cung', classYear: '’29', role: 'Portfolio Manager', img: '/ethanprof.PNG' },
+  { name: 'Ethan Cung', classYear: '’26', role: 'Portfolio Manager', img: '/ethanprof.PNG' },
 ];
   
   export default function About() {
