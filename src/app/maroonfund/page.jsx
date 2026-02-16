@@ -11,7 +11,7 @@ const officers = [
     { name: 'Dhruv Datta', classYear: '’27', role: 'Co-Chief Investment Officer', img: '/dhruvprof.PNG' },
     { name: 'Owen Conkey', classYear: '’29', role: 'Co-Chief Investment Officer', img: '/owenprof.PNG' },
     { name: 'Landry Taylor', classYear: '’29', role: 'Co-Director of Quant Team',     img: '/landryprof.PNG' },
-    { name: 'Diego Cancino', classYear: '’29', role: 'Co-Director of Quant Team',     img: '/diegoprof.PNG' },
+    { name: 'Joey Paul', classYear: '’29', role: 'Co-Director of Quant Team',     img: '/joeyprof.PNG' },
   ];
 
 const pmTeam = [
@@ -59,14 +59,15 @@ const pmTeam = [
           <div className="flex flex-col gap-0 mt-24">
             <p className="text-[23px] md:text-[27px] leading-[1.3] text-black font-semibold tracking-normal max-w-5xl mx-auto text-center">
               Student-Led investment club at Texas A&amp;M that manages $70,000 in university-allocated capital.
-              We teach students how to invest in public equities and build quantitative models from the ground up.
+              We teach students how to invest in public equities and build quantitative models from the ground up. Maroon Fund is a subsection of Scholars of Finance, but is transitioning into a new organization called Maroon Investment Club.
             </p>
           </div>
         </div>
       </motion.section>
 
-      <section className="max-w-7xl mx-auto px-6 py-10">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-6 font-sans text-[#500000]">
+      {/*
+      <section className="max-w-7xl mx-auto px-6 py-10">           
+        <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-6 font-sans text-[#500000]">
           Application
         </h1>
         <div className="flex flex-col items-center gap-4">
@@ -83,6 +84,7 @@ const pmTeam = [
           </Link>
         </div>
       </section>
+      */}
 
       <motion.section
         className="max-w-7xl mx-auto px-6 py-14"
@@ -202,18 +204,12 @@ const pmTeam = [
           <div className="mt-6 grid grid-cols-1 md:grid-cols-[16rem_1fr] items-start gap-8 md:gap-x-0 w-full">
             <div className="flex flex-col items-center gap-4">
 
-              <img
-                src="/jjp.png"
-                alt="Joey Profile"
-                className="w-56 h-56 md:w-64 md:h-64 rounded-full object-cover shadow-lg ring-1 ring-gray-200"
-              />
+          
               <div className="text-center">
                 <p className="text-xl font-semibold">
-                  <a href="https://www.linkedin.com/in/joeyjosephpaul23/" target="_blank" rel="noopener noreferrer" className="hover:underline">
-                    Joey Paul
-                  </a> <span className="font-normal">’29</span>
+                  
                 </p>
-                <p className="mt-3 text-lg text-gray-700">Portfolio Manager</p>
+              
               </div>
             </div>
             <div className="flex flex-col items-start gap-4 max-w-5xl md:pl-32">
