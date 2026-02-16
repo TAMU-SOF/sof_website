@@ -146,7 +146,7 @@ export default function Home() {
                 {
                   title: 'Maroon Fund',
                   description:
-                    'Student-Led investment club at Texas A&amp;M that manages $70,000 in university-allocated capital. We teach students how to invest in public equities and build quantitative models from the ground up. Maroon Fund is a subsection of Scholars of Finance, but is transitioning into a new organization called Maroon Investment Club.',
+                    'Student-Led investment club at Texas A&M that manages $70,000 in university-allocated capital. We teach students how to invest in public equities and build quantitative models from the ground up. Maroon Fund is a subsection of Scholars of Finance, but is transitioning into a new organization called Maroon Investment Club.',
                   image: '/mfphoto.jpeg',
                },
                 {
