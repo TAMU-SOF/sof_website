@@ -1,177 +1,158 @@
 'use client';
-import { useRef, useState, useEffect, useMemo } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import styles from './Timeline.module.css';
 
-export default function Timeline({
-  items = [],
-  heading = '',
-  /** NEW: extra space at the very top of the section (px) */
-  topPad = 52,
-  /** NEW: space between heading and first card (px) */
-  headGap = 24,
-}) {
+export default function Timeline({ items = [], heading = '' }) {
+  const pathColRef = useRef(null);   // reference frame for all Y measurements
+  const cardRefs  = useRef([]);
+
+  // dots[i].yPx  = card-center Y, measured from pathCol top
+  const [dots,       setDots]       = useState([]);
+  const [railOffset, setRailOffset] = useState(0);  // top of rail  (= dots[0].yPx)
+  const [railHeight, setRailHeight] = useState(0);  // total rail length
+  const [fillHeight, setFillHeight] = useState(0);  // filled portion
+  const [activeIdx,  setActiveIdx]  = useState(0);
+
   const safeItems = Array.isArray(items) ? items : [];
-  const sectionRef = useRef(null);
-  const cardRefs = useRef([]);
 
-  const [progress, setProgress] = useState(0);
-  const [secH, setSecH] = useState(0);
-  const [milestones, setMilestones] = useState([]);
+  /* ---------- measure card centres relative to pathCol ---------- */
+  const measure = useCallback(() => {
+    const pathCol = pathColRef.current;
+    if (!pathCol) return;
 
-  useEffect(() => {
-    let raf = 0;
-    const loop = () => {
-      const sec = sectionRef.current;
-      if (sec) {
-        const r = sec.getBoundingClientRect();
-        const topAbs = window.scrollY + r.top;
-        const h = sec.offsetHeight || 1;
-        const centerAbs = window.scrollY + window.innerHeight / 2;
-        const raw = (centerAbs - topAbs) / h;
-        const p = Math.max(0, Math.min(1, raw));
-        setProgress(p);
-        setSecH(h);
-      }
-      raf = requestAnimationFrame(loop);
-    };
-    raf = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(raf);
+    const pathTopAbs = window.scrollY + pathCol.getBoundingClientRect().top;
+
+    const newDots = cardRefs.current.map((el) => {
+      if (!el) return null;
+      const r = el.getBoundingClientRect();
+      return { yPx: window.scrollY + r.top + r.height / 2 - pathTopAbs };
+    }).filter(Boolean);
+
+    setDots(newDots);
+    if (newDots.length >= 1) {
+      setRailOffset(newDots[0].yPx);
+      setRailHeight(newDots[newDots.length - 1].yPx - newDots[0].yPx);
+    }
   }, []);
 
+  /* ---------- update fill & active item on scroll ---------- */
+  const handleScroll = useCallback(() => {
+    const pathCol = pathColRef.current;
+    if (!pathCol || dots.length === 0) return;
+
+    const pathTopAbs    = window.scrollY + pathCol.getBoundingClientRect().top;
+    const viewCenterAbs = window.scrollY + window.innerHeight / 2;
+    const relCenter     = viewCenterAbs - pathTopAbs;
+
+    const firstY = dots[0].yPx;
+    const lastY  = dots[dots.length - 1].yPx;
+    const clamped = Math.max(firstY, Math.min(lastY, relCenter));
+    setFillHeight(Math.max(0, clamped - firstY));
+
+    let best = 0, bestD = Infinity;
+    dots.forEach((d, i) => {
+      const dist = Math.abs(d.yPx - relCenter);
+      if (dist < bestD) { bestD = dist; best = i; }
+    });
+    setActiveIdx(best);
+  }, [dots]);
+
+  /* ---------- attach measurement observers ---------- */
   useEffect(() => {
-    const measure = () => {
-      const sec = sectionRef.current;
-      if (!sec) return;
-      const r = sec.getBoundingClientRect();
-      const topAbs = window.scrollY + r.top;
-      const h = sec.offsetHeight || 1;
-
-      const ms = cardRefs.current.map((el) => {
-        if (!el) return { rel: 0, yPx: 0 };
-        const cr = el.getBoundingClientRect();
-        const centerAbs = window.scrollY + cr.top + cr.height / 2;
-        const rel = (centerAbs - topAbs) / h;
-        const yPx = Math.max(0, Math.min(h, rel * h));
-        return { rel, yPx };
-      });
-
-      setMilestones(ms);
-      setSecH(h);
-    };
-
     measure();
+
     const ro = new ResizeObserver(measure);
-    if (sectionRef.current) ro.observe(sectionRef.current);
-    cardRefs.current.forEach((el) => el && ro.observe(el));
+    if (pathColRef.current) ro.observe(pathColRef.current);
+    cardRefs.current.forEach(el => el && ro.observe(el));
 
-    window.addEventListener('resize', measure);
-    window.addEventListener('scroll', measure, { passive: true });
-
-    const imgs = Array.from(sectionRef.current?.querySelectorAll('img') || []);
-    const onImg = () => measure();
-    imgs.forEach((img) => {
-      if (!img.complete) {
-        img.addEventListener('load', onImg);
-        img.addEventListener('error', onImg);
-      }
+    // re-measure after images load (they change card heights)
+    const imgs = cardRefs.current.flatMap(el =>
+      el ? Array.from(el.querySelectorAll('img')) : []
+    );
+    imgs.forEach(img => {
+      if (!img.complete) img.addEventListener('load', measure, { once: true });
     });
 
+    window.addEventListener('resize', measure);
     return () => {
       ro.disconnect();
       window.removeEventListener('resize', measure);
-      window.removeEventListener('scroll', measure);
-      imgs.forEach((img) => {
-        img.removeEventListener('load', onImg);
-        img.removeEventListener('error', onImg);
-      });
     };
-  }, [safeItems.length]);
+  }, [measure, safeItems.length]);
 
-  const fillPx = useMemo(() => {
-    const h = Math.max(0, secH);
-    const raw = Math.max(0, Math.min(h, progress * h));
-    if (milestones.length > 0) {
-      const lastY = milestones[milestones.length - 1].yPx;
-      return Math.min(raw, lastY);
-    }
-    return raw;
-  }, [progress, secH, milestones]);
-
-  const activeIndex = useMemo(() => {
-    if (!milestones.length) return 0;
-    let best = 0, bestD = Infinity;
-    milestones.forEach((m, i) => {
-      const d = Math.abs(m.rel - progress);
-      if (d < bestD) { bestD = d; best = i; }
-    });
-    return best;
-  }, [milestones, progress]);
+  /* ---------- attach scroll listener ---------- */
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
 
   return (
-    <section
-      ref={sectionRef}
-      className={styles.wrapper}
-      style={{
-        ['--topPad']: `${topPad}px`,
-        ['--headGap']: `${headGap}px`,
-      }}
-    >
+    <section className={styles.wrapper}>
+      {heading && <h2 className={styles.heading}>{heading}</h2>}
+
       <div className={styles.inner}>
-        {/* NEW: full-width heading that spans all columns */}
-        {heading ? <h2 className={styles.sectionHeading}>{heading}</h2> : null}
-
-        {/* SUBJECTS (left) */}
+        {/* ── LEFT: title labels ── */}
         <div className={styles.titlesCol}>
-          <div className={styles.titlesLayer}>
-            {safeItems.map((it, i) => (
-              <div
-                key={i}
-                className={`${styles.title} ${i === activeIndex ? styles.titleActive : ''}`}
-                style={{ top: `${milestones[i]?.yPx ?? 0}px` }}
-              >
-                {it.title}
-              </div>
-            ))}
-          </div>
+          {safeItems.map((item, i) => (
+            <span
+              key={i}
+              className={`${styles.title} ${i === activeIdx ? styles.titleActive : ''}`}
+              style={{ top: dots[i]?.yPx ?? 0 }}
+            >
+              {item.title}
+            </span>
+          ))}
         </div>
 
-        {/* PATH (center) */}
-        <div className={styles.pathCol}>
-          <div className={styles.fullRail}>
-            <div className={styles.fullLine} />
-            <div className={styles.fullFill} style={{ height: `${fillPx}px` }} />
-          </div>
-          <div className={styles.milestoneLayer}>
-            {milestones.map((m, i) => {
-              const passed = progress >= m.rel - 0.0001;
-              return (
-                <div
-                  key={i}
-                  className={`${styles.milestoneDot} ${passed ? styles.milestoneDotVisible : ''}`}
-                  style={{ top: `${m.yPx}px` }}
-                />
-              );
-            })}
-          </div>
+        {/* ── CENTRE: progress bar ── */}
+        <div ref={pathColRef} className={styles.pathCol}>
+          {/* grey background rail */}
+          <div
+            className={styles.rail}
+            style={{ top: railOffset, height: railHeight }}
+          />
+          {/* maroon fill */}
+          <div
+            className={styles.fill}
+            style={{ top: railOffset, height: fillHeight }}
+          />
+          {/* dots — one per card */}
+          {dots.map((d, i) => (
+            <div
+              key={i}
+              className={`${styles.dot} ${i <= activeIdx ? styles.dotActive : ''}`}
+              style={{ top: d.yPx }}
+            />
+          ))}
         </div>
 
-        {/* CARDS (right) */}
-        <div className={styles.rightCol}>
-          {safeItems.map((it, i) => (
-            <article key={i} ref={(el) => (cardRefs.current[i] = el)} className={styles.card}>
-              <div className={styles.mediaWrap}>
-                <img src={it.image} alt={it.title} className={styles.image} />
-              </div>
+        {/* ── RIGHT: cards ── */}
+        <div className={styles.cardsCol}>
+          {safeItems.map((item, i) => (
+            <article
+              key={i}
+              ref={el => (cardRefs.current[i] = el)}
+              className={styles.card}
+            >
+              {item.image && (
+                <div className={styles.mediaWrap}>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className={styles.image}
+                    loading="lazy"
+                  />
+                </div>
+              )}
               <div className={styles.content}>
-                <h3>{it.title}</h3>
-                <p>{it.description}</p>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
               </div>
             </article>
           ))}
-          <div className={styles.afterSpacer} aria-hidden />
         </div>
       </div>
     </section>
   );
-
 }

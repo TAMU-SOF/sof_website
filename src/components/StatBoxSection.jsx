@@ -5,8 +5,6 @@ import styles from './StatBox.module.css';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const stats = [
   { label: 'Total AUM', value: 59140, prefix: '$' },
   { label: 'Holdings in Portfolio', value: 10 },
@@ -19,6 +17,7 @@ function StatBox({ label, value, prefix = '', index }) {
   const hasStarted = useRef(false);
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
     const el = boxRef.current;
     if (!el) return;
 
